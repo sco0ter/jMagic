@@ -5,15 +5,31 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import liquibase.exception.LiquibaseException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class MtgJsonParser {
 
-    public static List<Set> parse(InputStream inputStream) throws IOException {
+    private static final HikariDataSource ds;
+
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:h2:file:./Magic");
+        ds = new HikariDataSource(config);
+    }
+
+    public static List<Set> parse(InputStream inputStream) throws IOException, SQLException, LiquibaseException {
+
+        DatabaseUtil db = new DatabaseUtil(ds);
+        db.init();
+
         List<Set> sets = new ArrayList<>();
 
         ObjectMapper mapper =
@@ -34,7 +50,10 @@ public final class MtgJsonParser {
         // move to first value of "data" element
         while (parser.nextValue() != null) {
             Set set = parser.readValueAs(Set.class);
-            sets.add(set);
+            if (set != null) {
+                db.insert(set);
+                sets.add(set);
+            }
         }
         return sets;
     }
