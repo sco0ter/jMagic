@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class Set {
 
@@ -74,7 +75,42 @@ public final class Set {
 //    private java.util.Set<Card> translations;
 
     @JsonProperty(required = true)
-    private String type;
+    private Type type;
+
+    public enum Type {
+
+        ARCHENEMY("archenemy"),
+        BOX("box"),
+        COMMANDER("commander"),
+        CORE("core"),
+        DRAFT_INNOVATION("draft_innovation"),
+        DUEL_DECK("duel_deck"),
+        EXPANSION("expansion"),
+        FROM_THE_VAULT("from_the_vault"),
+        FUNNY("funny"),
+        MASTERPIECE("masterpiece"),
+        MASTERS("masters"),
+        MEMORABILIA("memorabilia"),
+        PLANECHASE("planechase"),
+        PREMIUM_DECK("premium_deck"),
+        PROMO("promo"),
+        SPELLBOOK("spellbook"),
+        STARTER("starter"),
+        TOKEN("token"),
+        TREASURE_CHEST("treasure_chest"),
+        VANGUARD("vanguard");
+
+        @JsonValue
+        private final String value;
+
+        Type(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 
     @Override
     public final String toString() {
