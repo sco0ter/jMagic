@@ -1,9 +1,9 @@
+package mtgjson;
+
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.swing.border.Border;
 
 public abstract class AbstractCard {
     

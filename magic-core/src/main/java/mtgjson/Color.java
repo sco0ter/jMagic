@@ -1,16 +1,18 @@
+package mtgjson;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum BorderColor {
-    BLACK("black"),
-    BORDERLESS("borderless"),
-    GOLD("gold"),
-    SILVER("silver"),
-    WHITE("white");
+public enum Color {
+    WHITE("W"),
+    BLUE("U"),
+    BLACK("B"),
+    RED("R"),
+    GREEN("G");
 
     @JsonValue
     private final String value;
 
-    BorderColor(String value) {
+    Color(String value) {
         this.value = value;
     }
 

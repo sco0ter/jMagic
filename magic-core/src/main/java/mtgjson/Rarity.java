@@ -1,17 +1,20 @@
+package mtgjson;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum Availability {
+public enum Rarity {
 
-    ARENEA("arena"),
-    DREAMCAST("dreamcast"),
-    MTGO("mtgo"),
-    PAPER("paper"),
-    SHANDALAR("shandalar");
+    COMMON("common"),
+    UNCOMMON("uncommon"),
+    RARE("rare"),
+    MYTHIC("mythic"),
+    BONUS("bonus"),
+    SPECIAL("special");
 
     @JsonValue
     private final String value;
 
-    Availability(String value) {
+    Rarity(String value) {
         this.value = value;
     }
 

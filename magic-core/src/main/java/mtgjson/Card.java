@@ -1,3 +1,5 @@
+package mtgjson;
+
 import java.util.List;
 import java.util.Set;
 

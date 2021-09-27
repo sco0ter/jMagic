@@ -1,3 +1,5 @@
+package mtgjson;
+
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,3 +1,5 @@
+import mtgjson.MtgJsonParser;
+import mtgjson.Set;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
