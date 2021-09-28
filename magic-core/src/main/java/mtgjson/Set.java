@@ -1,8 +1,6 @@
 package mtgjson;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.jooq.Converter;
-import org.jooq.impl.EnumConverter;
 
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
@@ -51,8 +49,10 @@ public final class Set {
 
     private final String parentCode;
 
-    private final java.util.Set<CardToken> tokens = new HashSet<>();
+    private final Integer tcgplayerGroupId;
 
+    private final java.util.Set<CardToken> tokens = new HashSet<>();
+    
     private final Integer totalSetSize;
 
     @JsonProperty(required = true)
@@ -61,9 +61,9 @@ public final class Set {
     private final Type type;
 
     // This annotation is used by Jackson for deserialization and by jOOQ for database mapping.
-    @ConstructorProperties({"baseSetSize", "block", "code", "codeV3","cards", "isForeignOnly", "isFoilOnly", "isNonFoilOnly",
+    @ConstructorProperties({"baseSetSize", "block", "code", "codeV3", "cards", "isForeignOnly", "isFoilOnly", "isNonFoilOnly",
             "isOnlineOnly", "isPaperOnly", "isPartialPreview", "keyruneCode", "mcmId", "mcmIdExtras", "mcmName",
-            "mtgoCode", "name", "releaseDate", "parentCode", "tokens", "totalSetSize", "type"
+            "mtgoCode", "name", "releaseDate", "parentCode", "tcgplayerGroupId", "tokens", "totalSetSize", "type"
     })
     public Set(Integer baseSetSize,
                String block,
@@ -84,6 +84,7 @@ public final class Set {
                String name,
                LocalDate releaseDate,
                String parentCode,
+               Integer tcgplayerGroupId,
                List<CardToken> tokens,
                Integer totalSetSize,
                Type type) {
@@ -106,6 +107,7 @@ public final class Set {
         this.name = Objects.requireNonNull(name);
         this.releaseDate = Objects.requireNonNull(releaseDate);
         this.parentCode = parentCode;
+        this.tcgplayerGroupId = tcgplayerGroupId;
         this.tokens.addAll(tokens);
         this.totalSetSize = Objects.requireNonNull(totalSetSize);
         this.type = Objects.requireNonNull(type);
