@@ -41,7 +41,7 @@ public abstract class AbstractCard {
     private boolean hasNonFoil;
 
     @JsonProperty(required = true)
-    private Identifier identifiers;
+    private Identifiers identifiers;
 
     @JsonProperty(required = true)
     private Layout layout;

@@ -48,7 +48,7 @@ public interface ICard {
 
     boolean hasNonFoil();
 
-    List<Identifier> getIdentifiers();
+    List<Identifiers> getIdentifiers();
 
     Optional<Boolean> isAlternative();
 
