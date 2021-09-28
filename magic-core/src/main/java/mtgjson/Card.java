@@ -20,8 +20,8 @@ public class Card extends AbstractCard {
     @JsonProperty(required = true)
     private Rarity rarity;
 
-//    @JsonProperty(required = true)
-//    private Set<String> rulings;
+    @JsonProperty(required = true)
+    private List<Ruling> rulings;
 
     @JsonProperty(required = true)
     private List<String> variations;
