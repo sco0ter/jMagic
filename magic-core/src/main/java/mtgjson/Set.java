@@ -71,11 +71,15 @@ public final class Set {
     @JsonProperty(required = true)
     private Integer totalSetSize;
 
-//    @JsonProperty(required = true)
-//    private java.util.Set<Card> translations;
+    @JsonProperty(required = true)
+    private Translations translations;
 
     @JsonProperty(required = true)
     private Type type;
+
+    public Translations getTranslations() {
+        return translations;
+    }
 
     public enum Type {
 
