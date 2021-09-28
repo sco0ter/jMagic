@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Availability {
 
-    ARENEA("arena"),
+    ARENA("arena"),
     DREAMCAST("dreamcast"),
     MTGO("mtgo"),
     PAPER("paper"),

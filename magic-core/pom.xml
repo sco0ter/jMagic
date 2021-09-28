@@ -64,7 +64,13 @@
                                         <forcedType>
                                             <userType>mtgjson.BorderColor</userType>
                                             <enumConverter>true</enumConverter>
-                                            <includeExpression>.*\.Card\.BORDERCOLOR</includeExpression>
+                                            <includeExpression>.*\.Card\.BORDER_COLOR</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
+                                            <userType>mtgjson.Availability</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Card_Availability\.AVAILABILITY</includeExpression>
                                             <includeTypes>.*</includeTypes>
                                         </forcedType>
                                         <forcedType>

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -52,10 +53,9 @@ public final class Set {
     private final Integer tcgplayerGroupId;
 
     private final java.util.Set<CardToken> tokens = new HashSet<>();
-    
+
     private final Integer totalSetSize;
 
-    @JsonProperty(required = true)
     private Translations translations;
 
     private final Type type;
@@ -63,7 +63,7 @@ public final class Set {
     // This annotation is used by Jackson for deserialization and by jOOQ for database mapping.
     @ConstructorProperties({"baseSetSize", "block", "code", "codeV3", "cards", "isForeignOnly", "isFoilOnly", "isNonFoilOnly",
             "isOnlineOnly", "isPaperOnly", "isPartialPreview", "keyruneCode", "mcmId", "mcmIdExtras", "mcmName",
-            "mtgoCode", "name", "releaseDate", "parentCode", "tcgplayerGroupId", "tokens", "totalSetSize", "type"
+            "mtgoCode", "name", "releaseDate", "parentCode", "tcgplayerGroupId", "tokens", "totalSetSize", "translations", "type"
     })
     public Set(Integer baseSetSize,
                String block,
@@ -87,6 +87,7 @@ public final class Set {
                Integer tcgplayerGroupId,
                List<CardToken> tokens,
                Integer totalSetSize,
+               Translations translations,
                Type type) {
         this.baseSetSize = Objects.requireNonNull(baseSetSize);
         this.block = block;
@@ -110,11 +111,16 @@ public final class Set {
         this.tcgplayerGroupId = tcgplayerGroupId;
         this.tokens.addAll(tokens);
         this.totalSetSize = Objects.requireNonNull(totalSetSize);
+        this.translations = translations;
         this.type = Objects.requireNonNull(type);
     }
 
     public Translations getTranslations() {
         return translations;
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 
     public enum Type {

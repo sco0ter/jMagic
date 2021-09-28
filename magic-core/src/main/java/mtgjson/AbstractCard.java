@@ -1,23 +1,19 @@
 package mtgjson;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public abstract class AbstractCard {
-    
-    @JsonProperty(required = true)
-    private String artist;
 
-    @JsonProperty(required = true)
-    private String asciiName;
+    private final String artist;
 
-    @JsonProperty(required = true)
-    private Set<Availability> availability;
+    private final String asciiName;
 
-    @JsonProperty(required = true)
-    private BorderColor borderColor;
+    private final Set<Availability> availability;
+
+    private final BorderColor borderColor;
 
     @JsonProperty(required = true)
     private Set<Color> colorIdentity;
@@ -31,7 +27,6 @@ public abstract class AbstractCard {
     @JsonProperty(required = true)
     private Set<FrameEffect> frameEffects;
 
-    @JsonProperty(required = true)
     private FrameVersion frameVersion;
 
     @JsonProperty(required = true)
@@ -73,8 +68,24 @@ public abstract class AbstractCard {
     @JsonProperty(required = true)
     private String uuid;
 
+    AbstractCard(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, FrameVersion frameVersion) {
+        this.artist = artist;
+        this.asciiName = asciiName;
+        this.availability = availabilities;
+        this.borderColor = borderColor;
+        this.frameVersion = frameVersion;
+    }
+
     @Override
     public String toString() {
         return name;
+    }
+
+    public BorderColor getBorderColor() {
+        return borderColor;
+    }
+
+    public Set<Availability> getAvailabilities() {
+        return availability;
     }
 }
