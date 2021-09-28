@@ -1,34 +1,41 @@
 package mtgjson;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.beans.ConstructorProperties;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * The Foreign Data data model describes a list of properties for various card data models in alternate languages.
+ *
+ * <p>This class is immutable.</p>
  */
 public final class ForeignData {
 
-    @JsonProperty
-    private String faceName;
+    private final String faceName;
 
-    @JsonProperty
-    private String flavorText;
+    private final String flavorText;
 
-    @JsonProperty(required = true)
-    private String language;
+    private final String language;
 
-    @JsonProperty
-    private Integer multiverseId;
+    private final Integer multiverseId;
 
-    @JsonProperty(required = true)
-    private String name;
+    private final String name;
 
-    @JsonProperty
-    private String text;
+    private final String text;
 
-    @JsonProperty
-    private String type;
+    private final String type;
+
+    @ConstructorProperties({"faceName", "flavorText", "language", "multiverseId", "name", "text", "type"})
+    public ForeignData(String faceName, String flavorText, String language, Integer multiverseId, String name,
+                       String text, String type) {
+        this.faceName = faceName;
+        this.flavorText = flavorText;
+        this.language = Objects.requireNonNull(language);
+        this.multiverseId = multiverseId;
+        this.name = Objects.requireNonNull(name);
+        this.text = text;
+        this.type = type;
+    }
 
     /**
      * Gets the name on the face of the card.
@@ -62,7 +69,7 @@ public final class ForeignData {
      *
      * @return The multiverse identifier of the card.
      */
-    Optional<Integer> getMultiverseId() {
+    public Optional<Integer> getMultiverseId() {
         return Optional.ofNullable(multiverseId);
     }
 
@@ -71,7 +78,7 @@ public final class ForeignData {
      *
      * @return The name of the card.
      */
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -80,7 +87,7 @@ public final class ForeignData {
      *
      * @return The text ruling of the card.
      */
-    Optional<String> getText() {
+    public Optional<String> getText() {
         return Optional.ofNullable(text);
     }
 
@@ -89,7 +96,7 @@ public final class ForeignData {
      *
      * @return The type of the card. Includes any supertypes and subtypes.
      */
-    Optional<String> getType() {
+    public Optional<String> getType() {
         return Optional.ofNullable(type);
     }
 
