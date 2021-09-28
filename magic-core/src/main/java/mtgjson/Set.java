@@ -1,81 +1,115 @@
 package mtgjson;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.jooq.Converter;
+import org.jooq.impl.EnumConverter;
+
+import java.beans.ConstructorProperties;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 
 public final class Set {
 
-    @JsonProperty(required = true)
-    private Integer baseSetSize;
+    private final Integer baseSetSize;
 
-    @JsonProperty
-    private String block;
+    private final String block;
 
-    @JsonProperty
-    private List<Card> cards;
+    private final List<Card> cards = new ArrayList<>();
 
-    @JsonProperty(required = true)
-    private String code;
+    private final String code;
 
-    @JsonProperty
-    private String codeV3;
+    private final String codeV3;
 
-    @JsonProperty
-    private String isForeignOnly;
+    private final Boolean isForeignOnly;
 
-    @JsonProperty(required = true)
-    private Boolean isFoilOnly;
+    private final Boolean isFoilOnly;
 
-    @JsonProperty
-    private Boolean isNonFoilOnly;
+    private final Boolean isNonFoilOnly;
 
-    @JsonProperty(required = true)
-    private Boolean isOnlineOnly;
+    private final Boolean isOnlineOnly;
 
-    @JsonProperty
-    private Boolean isPaperOnly;
+    private final Boolean isPaperOnly;
 
-    @JsonProperty
-    private Boolean isPartialPreview;
+    private final Boolean isPartialPreview;
 
-    @JsonProperty(required = true)
-    private String keyruneCode;
+    private final String keyruneCode;
 
-    @JsonProperty
-    private Integer mcmId;
+    private final Integer mcmId;
 
-    @JsonProperty
-    private Integer mcmIdExtras;
+    private final Integer mcmIdExtras;
 
-    @JsonProperty
-    private String mcmName;
+    private final String mcmName;
 
-    @JsonProperty
-    private String mtgoCode;
+    private final String mtgoCode;
 
-    @JsonProperty(required = true)
-    private String name;
+    private final String name;
 
-    @JsonProperty(required = true)
-    private LocalDate releaseDate;
+    private final LocalDate releaseDate;
 
-    @JsonProperty
-    private String parentCode;
+    private final String parentCode;
 
-    @JsonProperty(required = true)
-    private java.util.Set<CardToken> tokens;
+    private final java.util.Set<CardToken> tokens = new HashSet<>();
 
-    @JsonProperty(required = true)
-    private Integer totalSetSize;
+    private final Integer totalSetSize;
 
     @JsonProperty(required = true)
     private Translations translations;
 
-    @JsonProperty(required = true)
-    private Type type;
+    private final Type type;
+
+    // This annotation is used by Jackson for deserialization and by jOOQ for database mapping.
+    @ConstructorProperties({"baseSetSize", "block", "code", "codeV3","cards", "isForeignOnly", "isFoilOnly", "isNonFoilOnly",
+            "isOnlineOnly", "isPaperOnly", "isPartialPreview", "keyruneCode", "mcmId", "mcmIdExtras", "mcmName",
+            "mtgoCode", "name", "releaseDate", "parentCode", "tokens", "totalSetSize", "type"
+    })
+    public Set(Integer baseSetSize,
+               String block,
+               String code,
+               String codeV3,
+               List<Card> cards,
+               Boolean isForeignOnly,
+               Boolean isFoilOnly,
+               Boolean isNonFoilOnly,
+               Boolean isOnlineOnly,
+               Boolean isPaperOnly,
+               Boolean isPartialPreview,
+               String keyruneCode,
+               Integer mcmId,
+               Integer mcmIdExtras,
+               String mcmName,
+               String mtgoCode,
+               String name,
+               LocalDate releaseDate,
+               String parentCode,
+               List<CardToken> tokens,
+               Integer totalSetSize,
+               Type type) {
+        this.baseSetSize = Objects.requireNonNull(baseSetSize);
+        this.block = block;
+        this.code = Objects.requireNonNull(code);
+        this.codeV3 = codeV3;
+        this.cards.addAll(cards);
+        this.isForeignOnly = isForeignOnly;
+        this.isFoilOnly = Objects.requireNonNull(isFoilOnly);
+        this.isNonFoilOnly = isNonFoilOnly;
+        this.isOnlineOnly = Objects.requireNonNull(isOnlineOnly);
+        this.isPaperOnly = isPaperOnly;
+        this.isPartialPreview = isPartialPreview;
+        this.keyruneCode = Objects.requireNonNull(keyruneCode);
+        this.mcmId = mcmId;
+        this.mcmIdExtras = mcmIdExtras;
+        this.mcmName = mcmName;
+        this.mtgoCode = mtgoCode;
+        this.name = Objects.requireNonNull(name);
+        this.releaseDate = Objects.requireNonNull(releaseDate);
+        this.parentCode = parentCode;
+        this.tokens.addAll(tokens);
+        this.totalSetSize = Objects.requireNonNull(totalSetSize);
+        this.type = Objects.requireNonNull(type);
+    }
 
     public Translations getTranslations() {
         return translations;
