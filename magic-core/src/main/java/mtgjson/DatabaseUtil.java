@@ -12,6 +12,8 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.generated.Tables;
 import org.jooq.generated.tables.records.CardAvailabilityRecord;
+import org.jooq.generated.tables.records.CardColorIdentityRecord;
+import org.jooq.generated.tables.records.CardColorRecord;
 import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.SetRecord;
@@ -44,7 +46,7 @@ public final class DatabaseUtil {
     public void insert(Set set) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             DSLContext context = DSL.using(connection, SQLDialect.DEFAULT);
-            
+
             SetRecord setRecord = context.newRecord(Tables.SET, set);
             context.insertInto(Tables.SET).set(setRecord).execute();
 
@@ -64,6 +66,18 @@ public final class DatabaseUtil {
                         cardFrameeffectRecord.attach(context.configuration());
                         cardFrameeffectRecord.store();
                     }
+                }
+
+                for (Color color : card.getColors()) {
+                    CardColorRecord cardColorRecord = new CardColorRecord(null, cardRecord.getId(), color);
+                    cardColorRecord.attach(context.configuration());
+                    cardColorRecord.store();
+                }
+
+                for (Color color : card.getColorIdentity()) {
+                    CardColorIdentityRecord cardColorIdentityRecord = new CardColorIdentityRecord(null, cardRecord.getId(), color);
+                    cardColorIdentityRecord.attach(context.configuration());
+                    cardColorIdentityRecord.store();
                 }
             }
         }

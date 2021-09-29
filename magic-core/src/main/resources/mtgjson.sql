@@ -30,9 +30,7 @@ CREATE TABLE "Card"
     artist                      TEXT,
     ascii_name                  TEXT,
     border_color                ENUM ('black', 'white', 'borderless', 'silver', 'gold'),
-    color_identity              TEXT,
     color_indicator             TEXT,
-    colors                      TEXT,
     converted_mana_cost         FLOAT,
     duel_deck                   TEXT,
     edhrec_rank                 INTEGER,
@@ -118,5 +116,21 @@ CREATE TABLE "Card_Frame_Effect"
     frame_effect ENUM ('colorshifted', 'companion', 'compasslanddfc', 'devoid', 'draft', 'etched', 'extendedart',
         'fullart', 'inverted', 'legendary', 'miracle', 'mooneldrazidfc', 'nyxborn', 'nyxtouched', 'originpwdfc',
         'showcase', 'snow', 'sunmoondfc', 'tombstone', 'waxingandwaningmoondfc'),
-    CONSTRAINT FK_Card_Card_FrameEffect FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    CONSTRAINT FK_Card_Card_Frame_Effect FOREIGN KEY (card_id) REFERENCES "Card" (id)
+);
+
+CREATE TABLE "Card_Color"
+(
+    id      INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id INTEGER REFERENCES "Card",
+    color   ENUM ('WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN'),
+    CONSTRAINT FK_Card_Card_Color FOREIGN KEY (card_id) REFERENCES "Card" (id)
+);
+
+CREATE TABLE "Card_Color_Identity"
+(
+    id      INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id INTEGER REFERENCES "Card",
+    color   ENUM ('WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN'),
+    CONSTRAINT FK_Card_Card_Color_Identity FOREIGN KEY (card_id) REFERENCES "Card" (id)
 );

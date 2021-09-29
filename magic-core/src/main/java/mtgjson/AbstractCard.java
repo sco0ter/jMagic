@@ -2,6 +2,7 @@ package mtgjson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -15,18 +16,15 @@ public abstract class AbstractCard {
 
     private final BorderColor borderColor;
 
-    @JsonProperty(required = true)
-    private Set<Color> colorIdentity;
+    private final Set<Color> colorIdentity;
 
-    @JsonProperty(required = true)
-    private Set<Color> colors;
+    private final Set<Color> colors;
 
-    @JsonProperty(required = true)
-    private float convertedManaCost;
+    private final float convertedManaCost;
 
     private final Set<FrameEffect> frameEffects;
 
-    private FrameVersion frameVersion;
+    private final FrameVersion frameVersion;
 
     @JsonProperty(required = true)
     private boolean hasFoil;
@@ -67,12 +65,15 @@ public abstract class AbstractCard {
     @JsonProperty(required = true)
     private String uuid;
 
-    AbstractCard(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, Set<FrameEffect> frameEffects, FrameVersion frameVersion) {
+    AbstractCard(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, Set<Color> colorIdentity, Set<Color> colors, float convertedManaCost, Set<FrameEffect> frameEffects, FrameVersion frameVersion) {
         this.artist = artist;
         this.asciiName = asciiName;
         this.availability = availabilities;
         this.borderColor = borderColor;
-        this.frameEffects = frameEffects;
+        this.colorIdentity = Set.copyOf(colorIdentity);
+        this.colors = Set.copyOf(colors);
+        this.convertedManaCost = convertedManaCost;
+        this.frameEffects = frameEffects != null ? Set.copyOf(frameEffects) : Collections.emptySet();
         this.frameVersion = frameVersion;
     }
 
@@ -91,5 +92,13 @@ public abstract class AbstractCard {
 
     public Set<FrameEffect> getFrameEffects() {
         return frameEffects;
+    }
+
+    public Set<Color> getColorIdentity() {
+        return colorIdentity;
+    }
+
+    public Set<Color> getColors() {
+        return colors;
     }
 }

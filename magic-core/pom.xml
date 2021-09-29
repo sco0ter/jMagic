@@ -80,6 +80,12 @@
                                             <includeTypes>.*</includeTypes>
                                         </forcedType>
                                         <forcedType>
+                                            <userType>mtgjson.Color</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Card_.*\.COLOR</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
                                             <userType>mtgjson.Set.Type</userType>
                                             <enumConverter>true</enumConverter>
                                             <includeExpression>.*\.Set\.TYPE</includeExpression>

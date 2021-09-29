@@ -26,8 +26,9 @@ public class Card extends AbstractCard {
     @JsonProperty(required = true)
     private List<String> variations;
 
-    @ConstructorProperties({"artist", "asciiName", "availability", "borderColor", "frameEffects", "frameVersion"})
-    public Card(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, Set<FrameEffect> frameEffects, FrameVersion frameVersion) {
-        super(artist, asciiName, availabilities, borderColor, frameEffects, frameVersion);
+    @ConstructorProperties({"artist", "asciiName", "availability", "borderColor", "colorIdentity", "colors",
+            "convertedManaCost", "frameEffects", "frameVersion"})
+    public Card(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, Set<Color> colorIdentity, Set<Color> colors, float convertedManaCost, Set<FrameEffect> frameEffects, FrameVersion frameVersion) {
+        super(artist, asciiName, availabilities, borderColor, colorIdentity, colors, convertedManaCost, frameEffects, frameVersion);
     }
 }
