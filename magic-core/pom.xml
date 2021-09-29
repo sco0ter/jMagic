@@ -74,6 +74,12 @@
                                             <includeTypes>.*</includeTypes>
                                         </forcedType>
                                         <forcedType>
+                                            <userType>mtgjson.FrameEffect</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Card_Frame_Effect\.FRAME_EFFECT</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
                                             <userType>mtgjson.Set.Type</userType>
                                             <enumConverter>true</enumConverter>
                                             <includeExpression>.*\.Set\.TYPE</includeExpression>

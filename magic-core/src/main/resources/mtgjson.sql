@@ -109,4 +109,14 @@ CREATE TABLE "Card_Availability"
     card_id      INTEGER REFERENCES "Card",
     availability ENUM ('arena', 'dreamcast', 'mtgo', 'paper', 'shandalar'),
     CONSTRAINT FK_Card_Card_Availability FOREIGN KEY (card_id) REFERENCES "Card" (id)
-)
+);
+
+CREATE TABLE "Card_Frame_Effect"
+(
+    id           INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id      INTEGER REFERENCES "Card",
+    frame_effect ENUM ('colorshifted', 'companion', 'compasslanddfc', 'devoid', 'draft', 'etched', 'extendedart',
+        'fullart', 'inverted', 'legendary', 'miracle', 'mooneldrazidfc', 'nyxborn', 'nyxtouched', 'originpwdfc',
+        'showcase', 'snow', 'sunmoondfc', 'tombstone', 'waxingandwaningmoondfc'),
+    CONSTRAINT FK_Card_Card_FrameEffect FOREIGN KEY (card_id) REFERENCES "Card" (id)
+);

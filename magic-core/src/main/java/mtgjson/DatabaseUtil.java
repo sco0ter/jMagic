@@ -10,9 +10,9 @@ import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
-import org.jooq.exception.DataAccessException;
 import org.jooq.generated.Tables;
 import org.jooq.generated.tables.records.CardAvailabilityRecord;
+import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.SetRecord;
 import org.jooq.impl.DSL;
@@ -44,15 +44,26 @@ public final class DatabaseUtil {
     public void insert(Set set) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             DSLContext context = DSL.using(connection, SQLDialect.DEFAULT);
+            
             SetRecord setRecord = context.newRecord(Tables.SET, set);
             context.insertInto(Tables.SET).set(setRecord).execute();
 
             for (Card card : set.getCards()) {
                 CardRecord cardRecord = context.newRecord(Tables.CARD, card);
                 cardRecord.store();
-                for (Availability availability : card.getAvailabilities()){
+
+                for (Availability availability : card.getAvailabilities()) {
                     CardAvailabilityRecord cardAvailabilityRecord = new CardAvailabilityRecord(null, cardRecord.getId(), availability);
+                    cardAvailabilityRecord.attach(context.configuration());
                     cardAvailabilityRecord.store();
+                }
+
+                if (card.getFrameEffects() != null) {
+                    for (FrameEffect frameEffect : card.getFrameEffects()) {
+                        CardFrameEffectRecord cardFrameeffectRecord = new CardFrameEffectRecord(null, cardRecord.getId(), frameEffect);
+                        cardFrameeffectRecord.attach(context.configuration());
+                        cardFrameeffectRecord.store();
+                    }
                 }
             }
         }

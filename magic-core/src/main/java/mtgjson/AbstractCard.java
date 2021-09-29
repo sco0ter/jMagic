@@ -24,8 +24,7 @@ public abstract class AbstractCard {
     @JsonProperty(required = true)
     private float convertedManaCost;
 
-    @JsonProperty(required = true)
-    private Set<FrameEffect> frameEffects;
+    private final Set<FrameEffect> frameEffects;
 
     private FrameVersion frameVersion;
 
@@ -68,11 +67,12 @@ public abstract class AbstractCard {
     @JsonProperty(required = true)
     private String uuid;
 
-    AbstractCard(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, FrameVersion frameVersion) {
+    AbstractCard(String artist, String asciiName, Set<Availability> availabilities, BorderColor borderColor, Set<FrameEffect> frameEffects, FrameVersion frameVersion) {
         this.artist = artist;
         this.asciiName = asciiName;
         this.availability = availabilities;
         this.borderColor = borderColor;
+        this.frameEffects = frameEffects;
         this.frameVersion = frameVersion;
     }
 
@@ -87,5 +87,9 @@ public abstract class AbstractCard {
 
     public Set<Availability> getAvailabilities() {
         return availability;
+    }
+
+    public Set<FrameEffect> getFrameEffects() {
+        return frameEffects;
     }
 }
