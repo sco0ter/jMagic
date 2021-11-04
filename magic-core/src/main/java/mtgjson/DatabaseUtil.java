@@ -24,6 +24,10 @@
 
 package mtgjson;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.sql.DataSource;
+
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
@@ -43,10 +47,6 @@ import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.SetRecord;
 import org.jooq.generated.tables.records.TokenCardRecord;
 import org.jooq.impl.DSL;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public final class DatabaseUtil {
 
@@ -83,10 +83,10 @@ public final class DatabaseUtil {
             }
 
             for (TokenCard card : set.getTokens()) {
-                
+
                 CardRecord cardRecord = context.newRecord(Tables.CARD, card);
                 cardRecord.store();
-                
+
                 insertCard(card, context, cardRecord.getId());
 
                 for (String reverseRelated : card.getReverseRelated()) {

@@ -24,14 +24,14 @@
 
 package mtgjson;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class Set {
 
@@ -84,10 +84,12 @@ public final class Set {
     private final Type type;
 
     // This annotation is used by Jackson for deserialization and by jOOQ for database mapping.
-    @ConstructorProperties({"baseSetSize", "block", "code", "codeV3", "cards", "isForeignOnly", "isFoilOnly", "isNonFoilOnly",
-            "isOnlineOnly", "isPaperOnly", "isPartialPreview", "keyruneCode", "mcmId", "mcmIdExtras", "mcmName",
-            "mtgoCode", "name", "releaseDate", "parentCode", "tcgplayerGroupId", "tokens", "totalSetSize", "translations", "type"
-    })
+    @ConstructorProperties(
+            {"baseSetSize", "block", "code", "codeV3", "cards", "isForeignOnly", "isFoilOnly", "isNonFoilOnly",
+                    "isOnlineOnly", "isPaperOnly", "isPartialPreview", "keyruneCode", "mcmId", "mcmIdExtras", "mcmName",
+                    "mtgoCode", "name", "releaseDate", "parentCode", "tcgplayerGroupId", "tokens", "totalSetSize",
+                    "translations", "type"
+            })
     public Set(Integer baseSetSize,
                String block,
                String code,
