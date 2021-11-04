@@ -4,7 +4,7 @@ import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Set;
 
-public final class CardToken extends AbstractCard {
+public final class TokenCard extends AbstractCard {
 
     private final Set<String> reverseRelated;
 
@@ -15,7 +15,7 @@ public final class CardToken extends AbstractCard {
                     "layout", "loyalty", "name", "number", "power", "promoTypes", "reverseRelated", "setCode", "side",
                     "subtypes",
                     "supertypes", "text", "toughness", "type", "types", "uuid", "watermark"})
-    public CardToken(String artist,
+    public TokenCard(String artist,
                      String asciiName,
                      Set<Availability> availabilities,
                      BorderColor borderColor,

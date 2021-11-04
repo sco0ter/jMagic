@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-public final class DeckCard extends Card {
+public final class DeckCard extends SetCard {
 
     private final int count;
 

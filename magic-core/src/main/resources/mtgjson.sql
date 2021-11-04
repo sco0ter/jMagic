@@ -96,9 +96,16 @@ CREATE TABLE "Card"
     toughness                   TEXT,
     type                        TEXT,
     types                       TEXT,
-    uuid                        CHAR(36) UNIQUE NOT NULL,
+    uuid                        CHAR(36) NOT NULL,
     variations                  TEXT,
     watermark                   TEXT
+);
+
+CREATE TABLE "Token_Card"
+(
+    id              INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id         INTEGER,
+    reverse_related TEXT
 );
 
 CREATE TABLE "Card_Availability"

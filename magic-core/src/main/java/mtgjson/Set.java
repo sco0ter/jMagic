@@ -6,7 +6,6 @@ import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,7 +15,7 @@ public final class Set {
 
     private final String block;
 
-    private final List<Card> cards = new ArrayList<>();
+    private final List<SetCard> cards = new ArrayList<>();
 
     private final String code;
 
@@ -52,7 +51,7 @@ public final class Set {
 
     private final Integer tcgplayerGroupId;
 
-    private final java.util.Set<CardToken> tokens = new HashSet<>();
+    private final List<TokenCard> tokens = new ArrayList<>();
 
     private final Integer totalSetSize;
 
@@ -69,7 +68,7 @@ public final class Set {
                String block,
                String code,
                String codeV3,
-               List<Card> cards,
+               List<SetCard> cards,
                Boolean isForeignOnly,
                Boolean isFoilOnly,
                Boolean isNonFoilOnly,
@@ -85,7 +84,7 @@ public final class Set {
                LocalDate releaseDate,
                String parentCode,
                Integer tcgplayerGroupId,
-               List<CardToken> tokens,
+               List<TokenCard> tokens,
                Integer totalSetSize,
                Translations translations,
                Type type) {
@@ -119,8 +118,12 @@ public final class Set {
         return translations;
     }
 
-    public List<Card> getCards() {
+    public List<SetCard> getCards() {
         return Collections.unmodifiableList(cards);
+    }
+
+    public List<TokenCard> getTokens() {
+        return Collections.unmodifiableList(tokens);
     }
 
     public enum Type {

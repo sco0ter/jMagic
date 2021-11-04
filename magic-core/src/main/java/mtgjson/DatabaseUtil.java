@@ -17,6 +17,7 @@ import org.jooq.generated.tables.records.CardColorRecord;
 import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.SetRecord;
+import org.jooq.generated.tables.records.TokenCardRecord;
 import org.jooq.impl.DSL;
 
 import javax.sql.DataSource;
@@ -50,36 +51,54 @@ public final class DatabaseUtil {
             SetRecord setRecord = context.newRecord(Tables.SET, set);
             context.insertInto(Tables.SET).set(setRecord).execute();
 
-            for (Card card : set.getCards()) {
+            for (SetCard card : set.getCards()) {
                 CardRecord cardRecord = context.newRecord(Tables.CARD, card);
                 cardRecord.store();
 
-                for (Availability availability : card.getAvailabilities()) {
-                    CardAvailabilityRecord cardAvailabilityRecord = new CardAvailabilityRecord(null, cardRecord.getId(), availability);
-                    cardAvailabilityRecord.attach(context.configuration());
-                    cardAvailabilityRecord.store();
-                }
+                insertCard(card, context, cardRecord.getId());
+            }
 
-                if (card.getFrameEffects() != null) {
-                    for (FrameEffect frameEffect : card.getFrameEffects()) {
-                        CardFrameEffectRecord cardFrameeffectRecord = new CardFrameEffectRecord(null, cardRecord.getId(), frameEffect);
-                        cardFrameeffectRecord.attach(context.configuration());
-                        cardFrameeffectRecord.store();
-                    }
-                }
+            for (TokenCard card : set.getTokens()) {
+                
+                CardRecord cardRecord = context.newRecord(Tables.CARD, card);
+                cardRecord.store();
+                
+                insertCard(card, context, cardRecord.getId());
 
-                for (Color color : card.getColors()) {
-                    CardColorRecord cardColorRecord = new CardColorRecord(null, cardRecord.getId(), color);
-                    cardColorRecord.attach(context.configuration());
-                    cardColorRecord.store();
-                }
-
-                for (Color color : card.getColorIdentity()) {
-                    CardColorIdentityRecord cardColorIdentityRecord = new CardColorIdentityRecord(null, cardRecord.getId(), color);
-                    cardColorIdentityRecord.attach(context.configuration());
-                    cardColorIdentityRecord.store();
+                for (String reverseRelated : card.getReverseRelated()) {
+                    TokenCardRecord tokenCardRecord = new TokenCardRecord(null, cardRecord.getId(), reverseRelated);
+                    tokenCardRecord.attach(context.configuration());
+                    tokenCardRecord.store();
                 }
             }
+        }
+    }
+
+    private void insertCard(AbstractCard card, DSLContext context, Integer cardId) {
+        for (Availability availability : card.getAvailabilities()) {
+            CardAvailabilityRecord cardAvailabilityRecord = new CardAvailabilityRecord(null, cardId, availability);
+            cardAvailabilityRecord.attach(context.configuration());
+            cardAvailabilityRecord.store();
+        }
+
+        if (card.getFrameEffects() != null) {
+            for (FrameEffect frameEffect : card.getFrameEffects()) {
+                CardFrameEffectRecord cardFrameeffectRecord = new CardFrameEffectRecord(null, cardId, frameEffect);
+                cardFrameeffectRecord.attach(context.configuration());
+                cardFrameeffectRecord.store();
+            }
+        }
+
+        for (Color color : card.getColors()) {
+            CardColorRecord cardColorRecord = new CardColorRecord(null, cardId, color);
+            cardColorRecord.attach(context.configuration());
+            cardColorRecord.store();
+        }
+
+        for (Color color : card.getColorIdentity()) {
+            CardColorIdentityRecord cardColorIdentityRecord = new CardColorIdentityRecord(null, cardId, color);
+            cardColorIdentityRecord.attach(context.configuration());
+            cardColorIdentityRecord.store();
         }
     }
 }
