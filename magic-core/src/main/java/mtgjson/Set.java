@@ -45,17 +45,17 @@ public final class Set {
 
     private final String codeV3;
 
-    private final Boolean isForeignOnly;
+    private final boolean isForeignOnly;
 
-    private final Boolean isFoilOnly;
+    private final boolean isFoilOnly;
 
-    private final Boolean isNonFoilOnly;
+    private final boolean isNonFoilOnly;
 
-    private final Boolean isOnlineOnly;
+    private final boolean isOnlineOnly;
 
-    private final Boolean isPaperOnly;
+    private final boolean isPaperOnly;
 
-    private final Boolean isPartialPreview;
+    private final boolean isPartialPreview;
 
     private final String keyruneCode;
 
@@ -69,9 +69,9 @@ public final class Set {
 
     private final String name;
 
-    private final LocalDate releaseDate;
-
     private final String parentCode;
+
+    private final LocalDate releaseDate;
 
     private final Integer tcgplayerGroupId;
 
@@ -79,7 +79,7 @@ public final class Set {
 
     private final Integer totalSetSize;
 
-    private Translations translations;
+    private final Translations translations;
 
     private final Type type;
 
@@ -140,16 +140,226 @@ public final class Set {
         this.type = Objects.requireNonNull(type);
     }
 
-    public Translations getTranslations() {
-        return translations;
+    /**
+     * The number of cards in the set. Will default to totalSetSize if not available. Wizards of the Coast sometimes
+     * prints extra cards beyond the set size into promos or supplemental products.
+     *
+     * @return The number of cards in the set.
+     */
+    public final Integer getBaseSetSize() {
+        return baseSetSize;
     }
 
-    public List<SetCard> getCards() {
+    /**
+     * The block name the set was in.
+     *
+     * @return The block name the set was in.
+     */
+    public final String getBlock() {
+        return block;
+    }
+
+    /**
+     * The list of cards in the set. The returned list is unmodifiable.
+     *
+     * @return The list of cards in the set.
+     * @see SetCard
+     */
+    public final List<SetCard> getCards() {
         return Collections.unmodifiableList(cards);
     }
 
-    public List<TokenCard> getTokens() {
+    /**
+     * The set code for the set.
+     *
+     * @return The set code for the set.
+     */
+    public final String getCode() {
+        return codeV3;
+    }
+
+    /**
+     * The alternate set code Wizards of the Coast uses for a select few duel deck sets.
+     *
+     * @return The alternate set code Wizards of the Coast uses for a select few duel deck sets.
+     */
+    public final String getCodeV3() {
+        return codeV3;
+    }
+
+    /**
+     * If the set is available only outside the United States of America.
+     *
+     * @return If the set is available only outside the United States of America.
+     */
+    public final boolean isForeignOnly() {
+        return isForeignOnly;
+    }
+
+    /**
+     * If the set is only available in foil.
+     *
+     * @return If the set is only available in foil.
+     */
+    public final boolean isFoilOnly() {
+        return isFoilOnly;
+    }
+
+    /**
+     * If the set is only available in non-foil.
+     *
+     * @return If the set is only available in non-foil.
+     */
+    public final boolean isNonFoilOnly() {
+        return isNonFoilOnly;
+    }
+
+    /**
+     * If the set is only available online.
+     *
+     * @return If the set is only available online.
+     */
+    public final boolean isOnlineOnly() {
+        return isOnlineOnly;
+    }
+
+    /**
+     * If the set is available only in paper.
+     *
+     * @return If the set is available only in paper.
+     */
+    public final boolean isPaperOnly() {
+        return isPaperOnly;
+    }
+
+    /**
+     * If the set is still in preview (spoiled). Preview sets do not have complete data.
+     *
+     * @return If the set is still in preview (spoiled). Preview sets do not have complete data.
+     */
+    public final boolean isPartialPreview() {
+        return isPartialPreview;
+    }
+
+    /**
+     * The matching Keyrune code for <a href="https://keyrune.andrewgioia.com/">Keyrune</a> image icons.
+     *
+     * @return The matching Keyrune code for Keyrune image icons.
+     */
+    public final String getKeyruneCode() {
+        return keyruneCode;
+    }
+
+    /**
+     * The <a href="https://www.cardmarket.com/en/Magic">Magic Card Market</a> set identifier.
+     *
+     * @return The <a href="https://www.cardmarket.com/en/Magic">Magic Card Market</a> set identifier.
+     */
+    public final Integer getMcmId() {
+        return mcmId;
+    }
+
+    /**
+     * The split <a href="https://www.cardmarket.com/en/Magic">Magic Card Market</a> set identifier if a set is printed
+     * in two sets. This identifier represents the second set's identifier.
+     *
+     * @return The split <a href="https://www.cardmarket.com/en/Magic">Magic Card Market</a> set identifier if a set is
+     * printed in two sets.
+     */
+    public final Integer getMcmIdExtras() {
+        return mcmIdExtras;
+    }
+
+    /**
+     * The <a href="https://www.cardmarket.com/en/Magic">Magic Card Market</a> set name.
+     *
+     * @return The <a href="https://www.cardmarket.com/en/Magic">Magic Card Market</a> set name.
+     */
+    public final String getMcmName() {
+        return mcmName;
+    }
+
+    /**
+     * The set code for the set as it appears on <a href="https://magic.wizards.com/en/mtgo">Magic: The Gathering
+     * Online</a>.
+     *
+     * @return The set code for the set as it appears on <a href="https://magic.wizards.com/en/mtgo">Magic: The
+     * Gathering Online</a>.
+     */
+    public final String getMtgoCode() {
+        return mtgoCode;
+    }
+
+    /**
+     * The name of the set.
+     *
+     * @return The name of the set.
+     */
+    public final String getName() {
+        return mtgoCode;
+    }
+
+    /**
+     * The parent set code for set variations like promotions, guild kits, etc.
+     *
+     * @return The parent set code for set variations like promotions, guild kits, etc.
+     */
+    public final String getParentCode() {
+        return parentCode;
+    }
+
+    /**
+     * The release date for the set.
+     *
+     * @return The release date for the set.
+     */
+    public final LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    /**
+     * The group identifier of the set on <a href="https://www.tcgplayer.com">TCGplayer</a>.
+     *
+     * @return The group identifier of the set on <a href="https://www.tcgplayer.com">TCGplayer</a>.
+     */
+    public final Integer getTcgplayerGroupId() {
+        return tcgplayerGroupId;
+    }
+
+    /**
+     * The tokens available to the set. The returned list is unmodifiable.
+     *
+     * @return The tokens available to the set.
+     */
+    public final List<TokenCard> getTokens() {
         return Collections.unmodifiableList(tokens);
+    }
+
+    /**
+     * The total number of cards in the set, including promos and related supplemental products.
+     *
+     * @return The total number of cards in the set, including promos and related supplemental products.
+     */
+    public final Integer getTotalSetSize() {
+        return totalSetSize;
+    }
+
+    /**
+     * The translated set name by language.
+     *
+     * @return The translated set name by language.
+     */
+    public final Translations getTranslations() {
+        return translations;
+    }
+
+    /**
+     * The expansion type of the set.
+     *
+     * @return The expansion type of the set.
+     */
+    public final Type getType() {
+        return type;
     }
 
     public enum Type {
