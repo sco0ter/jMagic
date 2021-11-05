@@ -90,17 +90,17 @@ public final class Set {
                     "mtgoCode", "name", "releaseDate", "parentCode", "tcgplayerGroupId", "tokens", "totalSetSize",
                     "translations", "type"
             })
-    public Set(Integer baseSetSize,
+    public Set(int baseSetSize,
                String block,
                String code,
                String codeV3,
                List<SetCard> cards,
-               Boolean isForeignOnly,
-               Boolean isFoilOnly,
-               Boolean isNonFoilOnly,
-               Boolean isOnlineOnly,
-               Boolean isPaperOnly,
-               Boolean isPartialPreview,
+               boolean isForeignOnly,
+               boolean isFoilOnly,
+               boolean isNonFoilOnly,
+               boolean isOnlineOnly,
+               boolean isPaperOnly,
+               boolean isPartialPreview,
                String keyruneCode,
                Integer mcmId,
                Integer mcmIdExtras,
@@ -114,15 +114,15 @@ public final class Set {
                Integer totalSetSize,
                Translations translations,
                Type type) {
-        this.baseSetSize = Objects.requireNonNull(baseSetSize);
+        this.baseSetSize = baseSetSize;
         this.block = block;
         this.code = Objects.requireNonNull(code);
         this.codeV3 = codeV3;
         this.cards.addAll(cards);
         this.isForeignOnly = isForeignOnly;
-        this.isFoilOnly = Objects.requireNonNull(isFoilOnly);
+        this.isFoilOnly = isFoilOnly;
         this.isNonFoilOnly = isNonFoilOnly;
-        this.isOnlineOnly = Objects.requireNonNull(isOnlineOnly);
+        this.isOnlineOnly = isOnlineOnly;
         this.isPaperOnly = isPaperOnly;
         this.isPartialPreview = isPartialPreview;
         this.keyruneCode = Objects.requireNonNull(keyruneCode);
