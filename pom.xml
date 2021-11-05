@@ -69,9 +69,7 @@
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>-XDcompilePolicy=simple</arg>
-                        <arg>-Xplugin:ErrorProne -Xep:FutureReturnValueIgnored:OFF -Xep:UnusedVariable:OFF
-                            -Xep:MissingSummary:OFF -Xep:DoNotCallSuggester:OFF
-                        </arg>
+                        <arg>-Xplugin:ErrorProne -XepDisableWarningsInGeneratedCode</arg>
                     </compilerArgs>
                     <annotationProcessorPaths>
                         <path>

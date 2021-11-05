@@ -74,6 +74,9 @@
                         </goals>
                         <configuration>
                             <generator>
+                                <generate>
+                                    <generatedAnnotation>true</generatedAnnotation>
+                                </generate>
                                 <database>
                                     <name>org.jooq.meta.extensions.liquibase.LiquibaseDatabase</name>
                                     <properties>
