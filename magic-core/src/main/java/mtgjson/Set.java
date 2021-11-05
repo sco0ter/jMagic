@@ -175,7 +175,7 @@ public final class Set {
      * @return The set code for the set.
      */
     public final String getCode() {
-        return codeV3;
+        return code;
     }
 
     /**
