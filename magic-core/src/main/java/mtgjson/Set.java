@@ -45,9 +45,9 @@ public final class Set {
 
     private final String codeV3;
 
-    private final boolean isForeignOnly;
-
     private final boolean isFoilOnly;
+
+    private final boolean isForeignOnly;
 
     private final boolean isNonFoilOnly;
 
@@ -188,21 +188,21 @@ public final class Set {
     }
 
     /**
-     * If the set is available only outside the United States of America.
-     *
-     * @return If the set is available only outside the United States of America.
-     */
-    public final boolean isForeignOnly() {
-        return isForeignOnly;
-    }
-
-    /**
      * If the set is only available in foil.
      *
      * @return If the set is only available in foil.
      */
     public final boolean isFoilOnly() {
         return isFoilOnly;
+    }
+
+    /**
+     * If the set is available only outside the United States of America.
+     *
+     * @return If the set is available only outside the United States of America.
+     */
+    public final boolean isForeignOnly() {
+        return isForeignOnly;
     }
 
     /**
