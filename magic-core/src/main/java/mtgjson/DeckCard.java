@@ -114,7 +114,7 @@ public final class DeckCard extends SetCard {
         super(artist, asciiName, availabilities, borderColor, colorIdentity, colorIndicator, colors, convertedManaCost,
                 edhrecRank, faceConvertedManaCost, faceName, flavorName, flavorText, foreignData, frameEffects,
                 frameVersion, hand, hasContentWarning, hasFoil, hasAlternativeDeckLimit, hasNonFoil, identifiers,
-                isAlternative, isFullArt, isOversized, isOnlineOnly, isPromo, isReprint, isReserved, isStarter,
+                isAlternative, isFullArt, isOnlineOnly, isOversized, isPromo, isReprint, isReserved, isStarter,
                 isStorySpotlight, isTextless, isTimeshifted, keywords, layout, legalities, life, loyalty, manaCost,
                 name, number, originalReleaseDate, originalText, originalType, otherFaceIds, power, printings,
                 promoTypes, rarity, rulings, setCode, side, subtypes, supertypes, text, toughness, type, types, uuid,
