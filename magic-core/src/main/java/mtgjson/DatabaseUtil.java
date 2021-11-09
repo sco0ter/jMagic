@@ -44,6 +44,7 @@ import org.jooq.generated.tables.records.CardColorIdentityRecord;
 import org.jooq.generated.tables.records.CardColorRecord;
 import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
+import org.jooq.generated.tables.records.SetCardRecord;
 import org.jooq.generated.tables.records.SetRecord;
 import org.jooq.generated.tables.records.TokenCardRecord;
 import org.jooq.impl.DSL;
@@ -78,6 +79,10 @@ public final class DatabaseUtil {
             for (SetCard card : set.getCards()) {
                 CardRecord cardRecord = context.newRecord(Tables.CARD, card);
                 cardRecord.store();
+
+                SetCardRecord setCardRecord = context.newRecord(Tables.SET_CARD, card);
+                setCardRecord.setCardId(cardRecord.getId());
+                setCardRecord.store();
 
                 insertCard(card, context, cardRecord.getId());
             }
