@@ -82,38 +82,44 @@ CREATE TABLE "Card"
 
 CREATE TABLE "Set_Card"
 (
-    card_id                     INTEGER PRIMARY KEY,
-    converted_mana_cost         FLOAT,
-    face_converted_mana_cost    FLOAT,
-    flavor_name                 TEXT,
-    hand                        TEXT,
-    has_alternative_deck_limit  BOOLEAN  NOT NULL DEFAULT 0,
-    has_content_warning         BOOLEAN  NOT NULL DEFAULT 0,
-    is_alternative              BOOLEAN  NOT NULL DEFAULT 0,
-    is_oversized                BOOLEAN  NOT NULL DEFAULT 0,
-    is_reserved                 BOOLEAN  NOT NULL DEFAULT 0,
-    is_starter                  BOOLEAN  NOT NULL DEFAULT 0,
-    is_story_spotlight          BOOLEAN  NOT NULL DEFAULT 0,
-    is_textless                 BOOLEAN  NOT NULL DEFAULT 0,
-    is_timeshifted              BOOLEAN  NOT NULL DEFAULT 0,
-    life                        TEXT,
-    mana_cost                   TEXT,
-    original_release_date       TEXT,
-    original_text               TEXT,
-    original_type               TEXT,
-    rarity                      ENUM ('uncommon', 'common', 'rare', 'mythic', 'special', 'bonus'),
-    other_face_ids              TEXT,
-    printings                   TEXT,
-    variations                  TEXT,
+    card_id                    INTEGER PRIMARY KEY,
+    converted_mana_cost        FLOAT,
+    face_converted_mana_cost   FLOAT,
+    flavor_name                TEXT,
+    hand                       TEXT,
+    has_alternative_deck_limit BOOLEAN NOT NULL DEFAULT 0,
+    has_content_warning        BOOLEAN NOT NULL DEFAULT 0,
+    is_alternative             BOOLEAN NOT NULL DEFAULT 0,
+    is_oversized               BOOLEAN NOT NULL DEFAULT 0,
+    is_reserved                BOOLEAN NOT NULL DEFAULT 0,
+    is_starter                 BOOLEAN NOT NULL DEFAULT 0,
+    is_story_spotlight         BOOLEAN NOT NULL DEFAULT 0,
+    is_textless                BOOLEAN NOT NULL DEFAULT 0,
+    is_timeshifted             BOOLEAN NOT NULL DEFAULT 0,
+    life                       TEXT,
+    mana_cost                  TEXT,
+    original_release_date      TEXT,
+    original_text              TEXT,
+    original_type              TEXT,
+    rarity                     ENUM ('uncommon', 'common', 'rare', 'mythic', 'special', 'bonus'),
+    other_face_ids             TEXT,
+    printings                  TEXT,
+    variations                 TEXT,
     CONSTRAINT FK_Card_Set_Card FOREIGN KEY (card_id) REFERENCES "Card" (id)
 );
 
 CREATE TABLE "Token_Card"
 (
+    card_id         INTEGER PRIMARY KEY,
+    CONSTRAINT FK_Card_Token_Card FOREIGN KEY (card_id) REFERENCES "Card" (id)
+);
+
+CREATE TABLE "Token_Card_Reverse_Related"
+(
     id              INTEGER PRIMARY KEY AUTO_INCREMENT,
     card_id         INTEGER,
     reverse_related TEXT,
-    CONSTRAINT FK_Card_Token_Card FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    CONSTRAINT FK_Token_Card_Token_Card_Reverse_Related FOREIGN KEY (card_id) REFERENCES "Token_Card" (card_id)
 );
 
 CREATE TABLE "Card_Availability"

@@ -47,6 +47,7 @@ import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.SetCardRecord;
 import org.jooq.generated.tables.records.SetRecord;
 import org.jooq.generated.tables.records.TokenCardRecord;
+import org.jooq.generated.tables.records.TokenCardReverseRelatedRecord;
 import org.jooq.impl.DSL;
 
 public final class DatabaseUtil {
@@ -77,6 +78,7 @@ public final class DatabaseUtil {
             context.insertInto(Tables.SET).set(setRecord).execute();
 
             for (SetCard card : set.getCards()) {
+
                 CardRecord cardRecord = context.newRecord(Tables.CARD, card);
                 cardRecord.store();
 
@@ -92,12 +94,17 @@ public final class DatabaseUtil {
                 CardRecord cardRecord = context.newRecord(Tables.CARD, card);
                 cardRecord.store();
 
+                TokenCardRecord tokenCardRecord = context.newRecord(Tables.TOKEN_CARD, card);
+                tokenCardRecord.setCardId(cardRecord.getId());
+                tokenCardRecord.store();
+
                 insertCard(card, context, cardRecord.getId());
 
                 for (String reverseRelated : card.getReverseRelated()) {
-                    TokenCardRecord tokenCardRecord = new TokenCardRecord(null, cardRecord.getId(), reverseRelated);
-                    tokenCardRecord.attach(context.configuration());
-                    tokenCardRecord.store();
+                    TokenCardReverseRelatedRecord tokenCardReverseRelatedRecord = new TokenCardReverseRelatedRecord(
+                            null, cardRecord.getId(), reverseRelated);
+                    tokenCardReverseRelatedRecord.attach(context.configuration());
+                    tokenCardReverseRelatedRecord.store();
                 }
             }
         }
