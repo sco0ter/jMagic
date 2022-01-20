@@ -84,8 +84,7 @@ public final class MtgJsonParser {
         private final JsonParser parser;
 
         private MtgJsonSpliterator(JsonParser parser) {
-            super(Long.MAX_VALUE,
-                    Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.SIZED | Spliterator.IMMUTABLE);
+            super(Long.MAX_VALUE, Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.IMMUTABLE);
             this.parser = parser;
         }
 
