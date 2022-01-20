@@ -22,27 +22,45 @@
  * SOFTWARE.
  */
 
-import liquibase.exception.LiquibaseException;
-import mtgjson.MtgJsonParser;
-import mtgjson.Set;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.stream.Stream;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import liquibase.exception.LiquibaseException;
+import mtgjson.DatabaseUtil;
+import mtgjson.MtgJsonParser;
+import mtgjson.Set;
+import org.testng.annotations.Test;
 
 public class MtgJsonParserIT {
 
+    private static final HikariDataSource ds;
+
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:h2:file:./Magic");
+        ds = new HikariDataSource(config);
+    }
+
     @Test
     public void testParse() throws IOException, SQLException, LiquibaseException {
-        try (InputStream inputStream = Files.newInputStream(Paths.get("./AllPrintings.json"))) {
-            List<Set> sets = MtgJsonParser.parse(inputStream);
 
-            Assert.assertNotNull(sets);
+        DatabaseUtil db = new DatabaseUtil(ds);
+        db.init();
+        try (InputStream inputStream = Files.newInputStream(Paths.get("./AllPrintings.json"))) {
+            Stream<Set> sets = MtgJsonParser.parseAllPrintings(inputStream);
+            sets.forEach(set -> {
+                try {
+                    db.insert(set);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 }

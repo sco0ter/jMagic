@@ -26,38 +26,24 @@ package mtgjson;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import liquibase.exception.LiquibaseException;
 
 public final class MtgJsonParser {
 
     private MtgJsonParser() {
     }
 
-    private static final HikariDataSource ds;
-
-    static {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:h2:file:./Magic");
-        ds = new HikariDataSource(config);
-    }
-
-    public static List<Set> parse(InputStream inputStream) throws IOException, SQLException, LiquibaseException {
-
-        DatabaseUtil db = new DatabaseUtil(ds);
-        db.init();
-
-        List<Set> sets = new ArrayList<>();
+    public static Stream<Set> parseAllPrintings(InputStream inputStream) throws IOException {
 
         ObjectMapper mapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -74,14 +60,33 @@ public final class MtgJsonParser {
         // move to end of "meta" element
         parser.nextValue();
 
-        // move to first value of "data" element
-        while (parser.nextValue() != null) {
-            Set set = parser.readValueAs(Set.class);
-            if (set != null) {
-                db.insert(set);
-                sets.add(set);
+        return StreamSupport.stream(new MtgJsonSpliterator(parser), false);
+    }
+
+    private static final class MtgJsonSpliterator extends Spliterators.AbstractSpliterator<Set> {
+
+        private final JsonParser parser;
+
+        private MtgJsonSpliterator(JsonParser parser) {
+            super(Long.MAX_VALUE,
+                    Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.SIZED | Spliterator.IMMUTABLE);
+            this.parser = parser;
+        }
+
+        @Override
+        public boolean tryAdvance(Consumer<? super Set> action) {
+            try {
+                if (parser.nextValue() != null) {
+                    Set set = parser.readValueAs(Set.class);
+                    if (set != null) {
+                        action.accept(set);
+                    }
+                    return true;
+                }
+                return false;
+            } catch (IOException e) {
+                return false;
             }
         }
-        return sets;
     }
 }
