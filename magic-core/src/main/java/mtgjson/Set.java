@@ -296,7 +296,7 @@ public final class Set {
      * @return The name of the set.
      */
     public final String getName() {
-        return mtgoCode;
+        return name;
     }
 
     /**

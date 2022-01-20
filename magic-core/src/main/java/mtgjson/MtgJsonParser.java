@@ -26,6 +26,7 @@ package mtgjson;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
@@ -44,6 +45,14 @@ public final class MtgJsonParser {
     }
 
     public static Stream<Set> parseAllPrintings(InputStream inputStream) throws IOException {
+        return parse(inputStream, true);
+    }
+
+    public static Optional<Set> parseSet(InputStream inputStream) throws IOException {
+        return parse(inputStream, false).findFirst();
+    }
+
+    private static Stream<Set> parse(InputStream inputStream, boolean skip) throws IOException {
 
         ObjectMapper mapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -57,9 +66,10 @@ public final class MtgJsonParser {
         parser.nextValue();
         // skip "meta" element
         parser.skipChildren();
-        // move to end of "meta" element
-        parser.nextValue();
 
+        if (skip) {
+            parser.nextValue();
+        }
         return StreamSupport.stream(new MtgJsonSpliterator(parser), false);
     }
 
