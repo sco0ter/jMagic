@@ -24,8 +24,6 @@
 
 package mtgjson;
 
-import java.util.Optional;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -77,8 +75,8 @@ public final class Legalities {
      *
      * @return The legality in the Brawl play format.
      */
-    public Optional<String> getBrawl() {
-        return Optional.ofNullable(brawl);
+    public String getBrawl() {
+        return brawl;
     }
 
     /**
@@ -86,8 +84,8 @@ public final class Legalities {
      *
      * @return The legality in the Commander play format.
      */
-    public Optional<String> getCommander() {
-        return Optional.ofNullable(commander);
+    public String getCommander() {
+        return commander;
     }
 
     /**
@@ -95,8 +93,8 @@ public final class Legalities {
      *
      * @return The legality in the Duel Commander play format.
      */
-    public Optional<String> getDuel() {
-        return Optional.ofNullable(duel);
+    public String getDuel() {
+        return duel;
     }
 
     /**
@@ -104,8 +102,8 @@ public final class Legalities {
      *
      * @return The legality in the Future  play format.
      */
-    public Optional<String> getFuture() {
-        return Optional.ofNullable(future);
+    public String getFuture() {
+        return future;
     }
 
     /**
@@ -113,8 +111,8 @@ public final class Legalities {
      *
      * @return The legality in the Frontier play format.
      */
-    public Optional<String> getFrontier() {
-        return Optional.of(frontier);
+    public String getFrontier() {
+        return frontier;
     }
 
     /**
@@ -122,8 +120,8 @@ public final class Legalities {
      *
      * @return The legality in the Historic play format.
      */
-    public Optional<String> getHistoric() {
-        return Optional.ofNullable(historic);
+    public String getHistoric() {
+        return historic;
     }
 
     /**
@@ -131,8 +129,8 @@ public final class Legalities {
      *
      * @return The legality in the Legacy play format.
      */
-    public Optional<String> getLegacy() {
-        return Optional.of(legacy);
+    public String getLegacy() {
+        return legacy;
     }
 
     /**
@@ -140,8 +138,8 @@ public final class Legalities {
      *
      * @return The legality in the Modern play format.
      */
-    public Optional<String> getModern() {
-        return Optional.ofNullable(modern);
+    public String getModern() {
+        return modern;
     }
 
     /**
@@ -149,8 +147,8 @@ public final class Legalities {
      *
      * @return The legality in the Pauper play format.
      */
-    public Optional<String> getPauper() {
-        return Optional.ofNullable(pauper);
+    public String getPauper() {
+        return pauper;
     }
 
     /**
@@ -158,8 +156,8 @@ public final class Legalities {
      *
      * @return The legality in the Penny play format.
      */
-    public Optional<String> getPenny() {
-        return Optional.ofNullable(penny);
+    public String getPenny() {
+        return penny;
     }
 
     /**
@@ -167,8 +165,8 @@ public final class Legalities {
      *
      * @return The legality in the Pioneer play format.
      */
-    public Optional<String> getPioneer() {
-        return Optional.ofNullable(pioneer);
+    public String getPioneer() {
+        return pioneer;
     }
 
     /**
@@ -176,8 +174,8 @@ public final class Legalities {
      *
      * @return The legality in the Standard play format.
      */
-    public Optional<String> getStandard() {
-        return Optional.ofNullable(standard);
+    public String getStandard() {
+        return standard;
     }
 
     /**
@@ -185,8 +183,8 @@ public final class Legalities {
      *
      * @return The legality in the Vintage play format.
      */
-    public Optional<String> getVintage() {
-        return Optional.ofNullable(vintage);
+    public String getVintage() {
+        return vintage;
     }
 
     @Override

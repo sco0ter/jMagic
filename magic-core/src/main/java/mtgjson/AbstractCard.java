@@ -26,7 +26,6 @@ package mtgjson;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public abstract class AbstractCard {
@@ -185,8 +184,8 @@ public abstract class AbstractCard {
      *
      * @return The name of the artist that illustrated the card art.
      */
-    public final Optional<String> getArtist() {
-        return Optional.ofNullable(artist);
+    public final String getArtist() {
+        return artist;
     }
 
     /**
@@ -194,8 +193,8 @@ public abstract class AbstractCard {
      *
      * @return The ASCII (Basic/128) code formatted card name with no special unicode characters.
      */
-    public final Optional<String> getAsciiName() {
-        return Optional.ofNullable(asciiName);
+    public final String getAsciiName() {
+        return asciiName;
     }
 
     /**
@@ -249,8 +248,8 @@ public abstract class AbstractCard {
      *
      * @return The card rank on <a href="https://www.edhrec.com/">EDHRec</a>.
      */
-    public final Optional<Integer> getEdhrecRank() {
-        return Optional.ofNullable(edhrecRank);
+    public final Integer getEdhrecRank() {
+        return edhrecRank;
     }
 
     /**
@@ -258,8 +257,8 @@ public abstract class AbstractCard {
      *
      * @return The name on the face of the card.
      */
-    public final Optional<String> getFaceName() {
-        return Optional.ofNullable(faceName);
+    public final String getFaceName() {
+        return faceName;
     }
 
     /**
@@ -267,8 +266,8 @@ public abstract class AbstractCard {
      *
      * @return The italicized text found below the rules text that has no game function.
      */
-    public final Optional<String> getFlavorText() {
-        return Optional.ofNullable(flavorText);
+    public final String getFlavorText() {
+        return flavorText;
     }
 
     /**
@@ -376,8 +375,8 @@ public abstract class AbstractCard {
      *
      * @return The loyalty value of the card. Used on Planeswalker cards.
      */
-    public final Optional<String> getLoyalty() {
-        return Optional.ofNullable(loyalty);
+    public final String getLoyalty() {
+        return loyalty;
     }
 
     /**
@@ -403,8 +402,8 @@ public abstract class AbstractCard {
      *
      * @return The power of the card.
      */
-    public final Optional<String> getPower() {
-        return Optional.ofNullable(power);
+    public final String getPower() {
+        return power;
     }
 
     /**
@@ -430,8 +429,8 @@ public abstract class AbstractCard {
      *
      * @return The identifier of the card side. Used on cards with multiple faces.
      */
-    public final Optional<String> getSide() {
-        return Optional.ofNullable(side);
+    public final String getSide() {
+        return side;
     }
 
     /**
@@ -457,8 +456,8 @@ public abstract class AbstractCard {
      *
      * @return The rules text of the card.
      */
-    public final Optional<String> getText() {
-        return Optional.ofNullable(text);
+    public final String getText() {
+        return text;
     }
 
     /**
@@ -466,8 +465,8 @@ public abstract class AbstractCard {
      *
      * @return The toughness of the card.
      */
-    public final Optional<String> getToughness() {
-        return Optional.ofNullable(toughness);
+    public final String getToughness() {
+        return toughness;
     }
 
     /**
@@ -502,8 +501,8 @@ public abstract class AbstractCard {
      *
      * @return The name of the watermark on the card.
      */
-    public final Optional<String> getWatermark() {
-        return Optional.ofNullable(watermark);
+    public final String getWatermark() {
+        return watermark;
     }
 
     @Override

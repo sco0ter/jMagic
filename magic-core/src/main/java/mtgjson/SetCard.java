@@ -27,7 +27,6 @@ package mtgjson;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class SetCard extends AbstractCard {
@@ -211,8 +210,8 @@ public class SetCard extends AbstractCard {
      *
      * @return The promotional card name printed above the true card name on special cards that has no game function.
      */
-    public final Optional<String> getFlavorName() {
-        return Optional.ofNullable(flavorName);
+    public final String getFlavorName() {
+        return flavorName;
     }
 
     /**
@@ -333,8 +332,8 @@ public class SetCard extends AbstractCard {
      *
      * @return The starting life total modifier.
      */
-    public final Optional<String> getLife() {
-        return Optional.ofNullable(life);
+    public final String getLife() {
+        return life;
     }
 
     /**
@@ -352,8 +351,8 @@ public class SetCard extends AbstractCard {
      *
      * @return The original release date.
      */
-    public final Optional<LocalDate> getOriginalReleaseDate() {
-        return Optional.ofNullable(originalReleaseDate);
+    public final LocalDate getOriginalReleaseDate() {
+        return originalReleaseDate;
     }
 
     /**

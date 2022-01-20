@@ -26,7 +26,6 @@ package mtgjson;
 
 import java.beans.ConstructorProperties;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * The Foreign Data data model describes a list of properties for various card data models in alternate languages.
@@ -66,8 +65,8 @@ public final class ForeignData {
      *
      * @return The name on the face of the card.
      */
-    public Optional<String> getFaceName() {
-        return Optional.ofNullable(faceName);
+    public String getFaceName() {
+        return faceName;
     }
 
     /**
@@ -75,8 +74,8 @@ public final class ForeignData {
      *
      * @return The flavor text of the card.
      */
-    public Optional<String> getFlavorText() {
-        return Optional.ofNullable(flavorText);
+    public String getFlavorText() {
+        return flavorText;
     }
 
     /**
@@ -93,8 +92,8 @@ public final class ForeignData {
      *
      * @return The multiverse identifier of the card.
      */
-    public Optional<Integer> getMultiverseId() {
-        return Optional.ofNullable(multiverseId);
+    public Integer getMultiverseId() {
+        return multiverseId;
     }
 
     /**
@@ -111,8 +110,8 @@ public final class ForeignData {
      *
      * @return The text ruling of the card.
      */
-    public Optional<String> getText() {
-        return Optional.ofNullable(text);
+    public String getText() {
+        return text;
     }
 
     /**
@@ -120,8 +119,8 @@ public final class ForeignData {
      *
      * @return The type of the card. Includes any supertypes and subtypes.
      */
-    public Optional<String> getType() {
-        return Optional.ofNullable(type);
+    public String getType() {
+        return type;
     }
 
     @Override
