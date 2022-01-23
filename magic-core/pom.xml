@@ -107,6 +107,12 @@
                                             <includeTypes>.*</includeTypes>
                                         </forcedType>
                                         <forcedType>
+                                            <userType>mtgjson.FrameVersion</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Card\.FRAME_VERSION</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
                                             <userType>mtgjson.Color</userType>
                                             <enumConverter>true</enumConverter>
                                             <includeExpression>.*\.Card_.*\.COLOR</includeExpression>
@@ -116,6 +122,18 @@
                                             <userType>mtgjson.Set.Type</userType>
                                             <enumConverter>true</enumConverter>
                                             <includeExpression>.*\.Set\.TYPE</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
+                                            <userType>mtgjson.Layout</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Card\.LAYOUT</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
+                                            <userType>mtgjson.Rarity</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Set_Card\.RARITY</includeExpression>
                                             <includeTypes>.*</includeTypes>
                                         </forcedType>
                                     </forcedTypes>
@@ -183,6 +201,18 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>4.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.14.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

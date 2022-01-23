@@ -31,9 +31,9 @@ import java.util.Set;
 
 public class SetCard extends AbstractCard {
 
-    private final float convertedManaCost;
+    private final double convertedManaCost;
 
-    private final float faceConvertedManaCost;
+    private final double faceConvertedManaCost;
 
     private final String flavorName;
 
@@ -71,7 +71,7 @@ public class SetCard extends AbstractCard {
 
     private final String originalType;
 
-    private final List<String> otherFaceIds;
+    private final String otherFaceIds;
 
     private final List<String> printings;
 
@@ -98,9 +98,9 @@ public class SetCard extends AbstractCard {
                    Set<Color> colorIdentity,
                    Set<Color> colorIndicator,
                    Set<Color> colors,
-                   float convertedManaCost,
+                   double convertedManaCost,
                    Integer edhrecRank,
-                   float faceConvertedManaCost,
+                   double faceConvertedManaCost,
                    String faceName,
                    String flavorName,
                    String flavorText,
@@ -136,7 +136,7 @@ public class SetCard extends AbstractCard {
                    LocalDate originalReleaseDate,
                    String originalText,
                    String originalType,
-                   List<String> otherFaceIds,
+                   String otherFaceIds,
                    String power,
                    List<String> printings,
                    List<String> promoTypes,
@@ -191,7 +191,7 @@ public class SetCard extends AbstractCard {
      *
      * @return The converted mana cost of the card.
      */
-    public final float getConvertedManaCost() {
+    public final double getConvertedManaCost() {
         return convertedManaCost;
     }
 
@@ -200,7 +200,7 @@ public class SetCard extends AbstractCard {
      *
      * @return The converted mana cost of the face of either half or part of the card.
      */
-    public final float getFaceConvertedManaCost() {
+    public final double getFaceConvertedManaCost() {
         return faceConvertedManaCost;
     }
 
@@ -239,7 +239,7 @@ public class SetCard extends AbstractCard {
      *
      * @return If the card marked by Wizards of the Coast for having sensitive content.
      */
-    public final boolean isHasContentWarning() {
+    public final boolean hasContentWarning() {
         return hasContentWarning;
     }
 
@@ -248,7 +248,7 @@ public class SetCard extends AbstractCard {
      *
      * @return If the card allows a value other than 4 copies in a deck.
      */
-    public final boolean isHasAlternativeDeckLimit() {
+    public final boolean hasAlternativeDeckLimit() {
         return hasAlternativeDeckLimit;
     }
 
@@ -378,7 +378,7 @@ public class SetCard extends AbstractCard {
      *
      * @return A list of UUID's of this card with counterparts, such as transformed or melded faces.
      */
-    public final List<String> getOtherFaceIds() {
+    public final String getOtherFaceIds() {
         return otherFaceIds;
     }
 

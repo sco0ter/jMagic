@@ -26,6 +26,7 @@ package mtgjson;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -100,7 +101,7 @@ public final class MtgJsonParser {
                 }
                 return false;
             } catch (IOException e) {
-                return false;
+                throw new UncheckedIOException(e);
             }
         }
     }

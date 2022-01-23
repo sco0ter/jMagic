@@ -145,9 +145,9 @@ public abstract class AbstractCard {
         this.asciiName = asciiName;
         this.availability = availabilities;
         this.borderColor = borderColor;
-        this.colorIdentity = Set.copyOf(colorIdentity);
+        this.colorIdentity = colorIdentity != null ? Set.copyOf(colorIdentity) : Collections.emptySet();
         this.colorIndicator = colorIndicator != null ? Set.copyOf(colorIndicator) : Collections.emptySet();
-        this.colors = Set.copyOf(colors);
+        this.colors = colors != null ? Set.copyOf(colors) : Collections.emptySet();
         this.edhrecRank = edhrecRank;
         this.faceName = faceName;
         this.flavorText = flavorText;

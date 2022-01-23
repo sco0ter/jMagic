@@ -93,7 +93,7 @@ public final class DeckCard extends SetCard {
                     LocalDate originalReleaseDate,
                     String originalText,
                     String originalType,
-                    List<String> otherFaceIds,
+                    String otherFaceIds,
                     String power,
                     List<String> printings,
                     List<String> promoTypes,

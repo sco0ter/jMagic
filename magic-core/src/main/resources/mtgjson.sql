@@ -1,4 +1,4 @@
-CREATE TABLE "Set"
+CREATE TABLE Set
 (
     id                 INTEGER PRIMARY KEY AUTO_INCREMENT,
     base_set_size      INTEGER,
@@ -25,29 +25,26 @@ CREATE TABLE "Set"
     type               ENUM ('core', 'masters', 'expansion', 'memorabilia', 'commander', 'starter', 'archenemy', 'box', 'draft_innovation', 'from_the_vault', 'funny', 'duel_deck', 'masterpiece', 'promo', 'premium_deck', 'planechase', 'token', 'vanguard', 'treasure_chest', 'spellbook')
 );
 
-CREATE TABLE "Card"
+CREATE TABLE Card
 (
     id                          INTEGER PRIMARY KEY AUTO_INCREMENT,
     artist                      TEXT,
     ascii_name                  TEXT,
-    border_color                ENUM ('black', 'white', 'borderless', 'silver', 'gold'),
-    color_indicator             TEXT,
-    duel_deck                   TEXT,
+    border_color                ENUM ('BLACK', 'WHITE', 'BORDERLESS', 'SILVER', 'GOLD'),
     edhrec_rank                 INTEGER,
     face_mana_value             FLOAT,
     face_name                   TEXT,
     finishes                    TEXT,
     flavor_text                 TEXT,
-    frame_effects               TEXT,
-    frame_version               ENUM ('2003', '1993', '2015', '1997', 'future'),
+    frame_version               ENUM ('_2003', '_1993', '_2015', '_1997', 'FUTURE'),
     has_foil                    BOOLEAN  NOT NULL DEFAULT 0,
     has_non_foil                BOOLEAN  NOT NULL DEFAULT 0,
     is_full_art                 BOOLEAN  NOT NULL DEFAULT 0,
     is_online_only              BOOLEAN  NOT NULL DEFAULT 0,
     is_promo                    BOOLEAN  NOT NULL DEFAULT 0,
     is_reprint                  BOOLEAN  NOT NULL DEFAULT 0,
-    keywords                    TEXT,
-    layout                      ENUM ('normal', 'adventure', 'class', 'aftermath', 'split', 'flip', 'leveler', 'saga', 'transform', 'vanguard', 'meld', 'modal_dfc', 'scheme', 'planar', 'host', 'augment'),
+    --keywords                    TEXT,
+    layout                      ENUM ('NORMAL', 'ADVENTURE', 'CLASS', 'AFTERMATH', 'SPLIT', 'FLIP', 'LEVELER', 'SAGA', 'TRANSFORM', 'VANGUARD', 'MELD', 'MODAL_DFC', 'SCHEME', 'PLANAR', 'HOST', 'AUGMENT'),
     leadership_skills           TEXT,
     loyalty                     TEXT,
     mana_value                  FLOAT,
@@ -61,26 +58,26 @@ CREATE TABLE "Card"
     name                        TEXT,
     number                      TEXT,
     power                       TEXT,
-    promo_types                 TEXT,
-    purchase_urls               TEXT,
+    --promo_types                 TEXT,
+    --purchase_urls               TEXT,
     scryfall_id                 TEXT,
     scryfall_illustration_id    TEXT,
     scryfall_oracle_id          TEXT,
     set_code                    TEXT,
     side                        TEXT,
-    subtypes                    TEXT,
-    supertypes                  TEXT,
+    --subtypes                    TEXT,
+    --supertypes                  TEXT,
     tcgplayer_etched_product_id TEXT,
     tcgplayer_product_id        TEXT,
     text                        TEXT,
     toughness                   TEXT,
     type                        TEXT,
-    types                       TEXT,
+    --types                       TEXT,
     uuid                        CHAR(36) NOT NULL,
     watermark                   TEXT
 );
 
-CREATE TABLE "Set_Card"
+CREATE TABLE Set_Card
 (
     card_id                    INTEGER PRIMARY KEY,
     converted_mana_cost        FLOAT,
@@ -102,56 +99,64 @@ CREATE TABLE "Set_Card"
     original_text              TEXT,
     original_type              TEXT,
     rarity                     ENUM ('uncommon', 'common', 'rare', 'mythic', 'special', 'bonus'),
-    other_face_ids             TEXT,
-    printings                  TEXT,
-    variations                 TEXT,
-    CONSTRAINT FK_Card_Set_Card FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    --other_face_ids             TEXT,
+    --printings                  TEXT,
+    --variations                 TEXT,
+    CONSTRAINT FK_Card_Set_Card FOREIGN KEY (card_id) REFERENCES Card (id)
 );
 
-CREATE TABLE "Token_Card"
+CREATE TABLE Token_Card
 (
     card_id         INTEGER PRIMARY KEY,
-    CONSTRAINT FK_Card_Token_Card FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    CONSTRAINT FK_Card_Token_Card FOREIGN KEY (card_id) REFERENCES Card (id)
 );
 
-CREATE TABLE "Token_Card_Reverse_Related"
+CREATE TABLE Token_Card_Reverse_Related
 (
     id              INTEGER PRIMARY KEY AUTO_INCREMENT,
     card_id         INTEGER,
     reverse_related TEXT,
-    CONSTRAINT FK_Token_Card_Token_Card_Reverse_Related FOREIGN KEY (card_id) REFERENCES "Token_Card" (card_id)
+    CONSTRAINT FK_Token_Card_Token_Card_Reverse_Related FOREIGN KEY (card_id) REFERENCES Token_Card (card_id)
 );
 
-CREATE TABLE "Card_Availability"
+CREATE TABLE Card_Availability
 (
     id           INTEGER PRIMARY KEY AUTO_INCREMENT,
-    card_id      INTEGER REFERENCES "Card",
-    availability ENUM ('arena', 'dreamcast', 'mtgo', 'paper', 'shandalar'),
-    CONSTRAINT FK_Card_Card_Availability FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    card_id      INTEGER REFERENCES Card,
+    availability ENUM ('ARENA', 'DREAMCAST', 'MTGO', 'PAPER', 'SHANDALAR'),
+    CONSTRAINT FK_Card_Card_Availability FOREIGN KEY (card_id) REFERENCES Card (id)
 );
 
-CREATE TABLE "Card_Frame_Effect"
+CREATE TABLE Card_Frame_Effect
 (
     id           INTEGER PRIMARY KEY AUTO_INCREMENT,
-    card_id      INTEGER REFERENCES "Card",
+    card_id      INTEGER REFERENCES Card,
     frame_effect ENUM ('colorshifted', 'companion', 'compasslanddfc', 'devoid', 'draft', 'etched', 'extendedart',
         'fullart', 'inverted', 'legendary', 'miracle', 'mooneldrazidfc', 'nyxborn', 'nyxtouched', 'originpwdfc',
         'showcase', 'snow', 'sunmoondfc', 'tombstone', 'waxingandwaningmoondfc'),
-    CONSTRAINT FK_Card_Card_Frame_Effect FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    CONSTRAINT FK_Card_Card_Frame_Effect FOREIGN KEY (card_id) REFERENCES Card (id)
 );
 
-CREATE TABLE "Card_Color"
+CREATE TABLE Card_Color
 (
     id      INTEGER PRIMARY KEY AUTO_INCREMENT,
-    card_id INTEGER REFERENCES "Card",
+    card_id INTEGER REFERENCES Card,
     color   ENUM ('WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN'),
-    CONSTRAINT FK_Card_Card_Color FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    CONSTRAINT FK_Card_Card_Color FOREIGN KEY (card_id) REFERENCES Card (id)
 );
 
-CREATE TABLE "Card_Color_Identity"
+CREATE TABLE Card_Color_Identity
 (
     id      INTEGER PRIMARY KEY AUTO_INCREMENT,
-    card_id INTEGER REFERENCES "Card",
+    card_id INTEGER REFERENCES Card,
     color   ENUM ('WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN'),
-    CONSTRAINT FK_Card_Card_Color_Identity FOREIGN KEY (card_id) REFERENCES "Card" (id)
+    CONSTRAINT FK_Card_Card_Color_Identity FOREIGN KEY (card_id) REFERENCES Card (id)
+);
+
+CREATE TABLE Card_Color_Indicator
+(
+    id      INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id INTEGER REFERENCES Card,
+    color   ENUM ('WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN'),
+    CONSTRAINT FK_Card_Card_Color_Indicator FOREIGN KEY (card_id) REFERENCES Card (id)
 );
