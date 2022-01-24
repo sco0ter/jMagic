@@ -185,8 +185,8 @@ public final class DatabaseUtil {
                                         .fetchSet(CARD_FRAME_EFFECT.FRAME_EFFECT);
                         return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
                                 r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
-                                r.get(SET_CARD.CONVERTED_MANA_COST), r.get(CARD.EDHREC_RANK),
-                                r.get(SET_CARD.FACE_CONVERTED_MANA_COST), r.get(CARD.FACE_NAME),
+                                r.get(CARD.EDHREC_RANK),
+                                r.get(CARD.FACE_NAME),
                                 r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), null, frameEffects,
                                 r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
                                 r.get(CARD.HAS_FOIL), r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
@@ -195,11 +195,11 @@ public final class DatabaseUtil {
                                 r.get(CARD.IS_REPRINT), r.get(SET_CARD.IS_RESERVED), r.get(SET_CARD.IS_STARTER),
                                 r.get(SET_CARD.IS_STORY_SPOTLIGHT), r.get(SET_CARD.IS_TEXTLESS),
                                 r.get(SET_CARD.IS_TIMESHIFTED), null, r.get(CARD.LAYOUT), null, r.get(SET_CARD.LIFE),
-                                r.get(CARD.LOYALTY), r.get(SET_CARD.MANA_COST), r.get(CARD.NAME), r.get(CARD.NUMBER),
-                                null, r.get(SET_CARD.ORIGINAL_TEXT), r.get(SET_CARD.ORIGINAL_TYPE), null,
-                                r.get(CARD.POWER), null, null, r.get(SET_CARD.RARITY), null, r.get(CARD.SET_CODE),
-                                r.get(CARD.SIDE), null, null, null, r.get(CARD.TOUGHNESS), r.get(CARD.TYPE), null, null,
-                                null, r.get(CARD.WATERMARK)
+                                r.get(CARD.LOYALTY), r.get(SET_CARD.MANA_COST), r.get(SET_CARD.MANA_VALUE),
+                                r.get(CARD.NAME), r.get(CARD.NUMBER), null, r.get(SET_CARD.ORIGINAL_TEXT),
+                                r.get(SET_CARD.ORIGINAL_TYPE), null, r.get(CARD.POWER), null, null,
+                                r.get(SET_CARD.RARITY), null, r.get(CARD.SET_CODE), r.get(CARD.SIDE), null, null, null,
+                                r.get(CARD.TOUGHNESS), r.get(CARD.TYPE), null, null, null, r.get(CARD.WATERMARK)
                         );
 
                     });

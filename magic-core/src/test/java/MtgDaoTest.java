@@ -71,8 +71,6 @@ public class MtgDaoTest {
         Assert.assertTrue(chromeMox.getAvailabilities().contains(Availability.PAPER));
         Assert.assertEquals(chromeMox.getBorderColor(), BorderColor.BLACK);
         Assert.assertTrue(chromeMox.getColorIdentity().isEmpty());
-        Assert.assertEquals(chromeMox.getConvertedManaCost(), 0);
-        Assert.assertEquals(chromeMox.getFaceConvertedManaCost(), 0);
         Assert.assertNull(chromeMox.getFaceName());
         Assert.assertNull(chromeMox.getFlavorName());
         Assert.assertNull(chromeMox.getFlavorText());
@@ -98,6 +96,7 @@ public class MtgDaoTest {
         Assert.assertNull(chromeMox.getLife());
         Assert.assertNull(chromeMox.getLoyalty());
         Assert.assertEquals(chromeMox.getManaCost(), "{0}");
+        Assert.assertEquals(chromeMox.getManaValue(), 0);
         Assert.assertEquals(chromeMox.getName(), "Chrome Mox");
         Assert.assertEquals(chromeMox.getNumber(), "152");
         Assert.assertEquals(chromeMox.getOriginalText(), "Imprint When Chrome Mox comes into play, you may remove a nonartifact, nonland card in your hand from the game. (The removed card is imprinted on this artifact.)\n"

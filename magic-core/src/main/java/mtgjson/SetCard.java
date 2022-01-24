@@ -31,10 +31,6 @@ import java.util.Set;
 
 public class SetCard extends AbstractCard {
 
-    private final double convertedManaCost;
-
-    private final double faceConvertedManaCost;
-
     private final String flavorName;
 
     private final Set<ForeignData> foreignData;
@@ -65,6 +61,8 @@ public class SetCard extends AbstractCard {
 
     private final String manaCost;
 
+    private final double manaValue;
+
     private final LocalDate originalReleaseDate;
 
     private final String originalText;
@@ -83,14 +81,14 @@ public class SetCard extends AbstractCard {
 
     @ConstructorProperties(
             {"artist", "asciiName", "availability", "borderColor", "colorIdentity", "colorIndicator", "colors",
-                    "convertedManaCost", "edhrecRank", "faceConvertedManaCost", "faceName", "flavorName", "flavorText",
-                    "foreignData", "frameEffects", "frameVersion", "hand", "hasContentWarning", "hasFoil",
-                    "hasAlternativeDeckLimit", "hasNonFoil", "identifiers", "isAlternative", "isFullArt",
-                    "isOnlineOnly", "isOversized", "isPromo", "isReprint", "isReserved", "isStarter",
-                    "isStorySpotlight", "isTextless", "isTimeshifted", "keywords", "layout", "legalities", "life",
-                    "loyalty", "manaCost", "name", "number", "originalReleaseDate", "originalText", "originalType",
-                    "otherFaceIds", "power", "printings", "promoTypes", "rarity", "rulings", "setCode", "side",
-                    "subtypes", "supertypes", "text", "toughness", "type", "types", "uuid", "variations", "watermark"})
+                    "edhrecRank", "faceName", "flavorName", "flavorText", "foreignData", "frameEffects", "frameVersion",
+                    "hand", "hasContentWarning", "hasFoil", "hasAlternativeDeckLimit", "hasNonFoil", "identifiers",
+                    "isAlternative", "isFullArt", "isOnlineOnly", "isOversized", "isPromo", "isReprint", "isReserved",
+                    "isStarter", "isStorySpotlight", "isTextless", "isTimeshifted", "keywords", "layout", "legalities",
+                    "life", "loyalty", "manaCost", "manaValue", "name", "number", "originalReleaseDate", "originalText",
+                    "originalType", "otherFaceIds", "power", "printings", "promoTypes", "rarity", "rulings", "setCode",
+                    "side", "subtypes", "supertypes", "text", "toughness", "type", "types", "uuid", "variations",
+                    "watermark"})
     public SetCard(String artist,
                    String asciiName,
                    Set<Availability> availabilities,
@@ -98,9 +96,7 @@ public class SetCard extends AbstractCard {
                    Set<Color> colorIdentity,
                    Set<Color> colorIndicator,
                    Set<Color> colors,
-                   double convertedManaCost,
                    Integer edhrecRank,
-                   double faceConvertedManaCost,
                    String faceName,
                    String flavorName,
                    String flavorText,
@@ -131,6 +127,7 @@ public class SetCard extends AbstractCard {
                    String life,
                    String loyalty,
                    String manaCost,
+                   double manaValue,
                    String name,
                    String number,
                    LocalDate originalReleaseDate,
@@ -159,8 +156,6 @@ public class SetCard extends AbstractCard {
                 frameVersion, hasFoil, hasNonFoil, identifiers, isFullArt, isOnlineOnly, isPromo, isReprint, keywords,
                 layout, loyalty, name, number, power, promoTypes, setCode, side, subtypes, supertypes, text, toughness,
                 type, types, uuid, watermark);
-        this.convertedManaCost = convertedManaCost;
-        this.faceConvertedManaCost = faceConvertedManaCost;
         this.flavorName = flavorName;
         this.foreignData = foreignData;
         this.hand = hand;
@@ -176,6 +171,7 @@ public class SetCard extends AbstractCard {
         this.legalities = legalities;
         this.life = life;
         this.manaCost = manaCost;
+        this.manaValue = manaValue;
         this.originalReleaseDate = originalReleaseDate;
         this.originalText = originalText;
         this.originalType = originalType;
@@ -184,24 +180,6 @@ public class SetCard extends AbstractCard {
         this.rarity = rarity;
         this.rulings = rulings;
         this.variations = variations;
-    }
-
-    /**
-     * The converted mana cost of the card.
-     *
-     * @return The converted mana cost of the card.
-     */
-    public final double getConvertedManaCost() {
-        return convertedManaCost;
-    }
-
-    /**
-     * The converted mana cost of the face of either half or part of the card.
-     *
-     * @return The converted mana cost of the face of either half or part of the card.
-     */
-    public final double getFaceConvertedManaCost() {
-        return faceConvertedManaCost;
     }
 
     /**
@@ -343,6 +321,15 @@ public class SetCard extends AbstractCard {
      */
     public final String getManaCost() {
         return manaCost;
+    }
+
+    /**
+     * The mana cost of the card.
+     *
+     * @return The mana cost of the card.
+     */
+    public final double getManaValue() {
+        return manaValue;
     }
 
     /**

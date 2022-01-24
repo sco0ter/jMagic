@@ -37,7 +37,7 @@ public final class DeckCard extends SetCard {
 
     @ConstructorProperties(
             {"artist", "asciiName", "availability", "borderColor", "colorIdentity", "colorIndicator", "colors",
-                    "convertedManaCost", "count", "duelDeck", "edhrecRank", "faceConvertedManaCost", "faceName",
+                    "count", "duelDeck", "edhrecRank", "faceName",
                     "flavorName", "flavorText", "foreignData", "frameEffects", "frameVersion", "hand",
                     "hasContentWarning", "hasFoil", "hasAlternativeDeckLimit", "hasNonFoil", "identifiers",
                     "isAlternative", "isFullArt", "isOnlineOnly", "isOversized", "isPromo", "isReprint", "isReserved",
@@ -53,11 +53,9 @@ public final class DeckCard extends SetCard {
                     Set<Color> colorIdentity,
                     Set<Color> colorIndicator,
                     Set<Color> colors,
-                    float convertedManaCost,
                     int count,
                     String duelDeck,
                     Integer edhrecRank,
-                    float faceConvertedManaCost,
                     String faceName,
                     String flavorName,
                     String flavorText,
@@ -88,6 +86,7 @@ public final class DeckCard extends SetCard {
                     String life,
                     String loyalty,
                     String manaCost,
+                    double manaValue,
                     String name,
                     String number,
                     LocalDate originalReleaseDate,
@@ -111,14 +110,14 @@ public final class DeckCard extends SetCard {
                     String uuid,
                     List<String> variations,
                     String watermark) {
-        super(artist, asciiName, availabilities, borderColor, colorIdentity, colorIndicator, colors, convertedManaCost,
-                edhrecRank, faceConvertedManaCost, faceName, flavorName, flavorText, foreignData, frameEffects,
+        super(artist, asciiName, availabilities, borderColor, colorIdentity, colorIndicator, colors, edhrecRank,
+                faceName, flavorName, flavorText, foreignData, frameEffects,
                 frameVersion, hand, hasContentWarning, hasFoil, hasAlternativeDeckLimit, hasNonFoil, identifiers,
                 isAlternative, isFullArt, isOnlineOnly, isOversized, isPromo, isReprint, isReserved, isStarter,
                 isStorySpotlight, isTextless, isTimeshifted, keywords, layout, legalities, life, loyalty, manaCost,
-                name, number, originalReleaseDate, originalText, originalType, otherFaceIds, power, printings,
-                promoTypes, rarity, rulings, setCode, side, subtypes, supertypes, text, toughness, type, types, uuid,
-                variations, watermark);
+                manaValue, name, number, originalReleaseDate, originalText, originalType, otherFaceIds, power,
+                printings, promoTypes, rarity, rulings, setCode, side, subtypes, supertypes, text, toughness, type,
+                types, uuid, variations, watermark);
         this.count = count;
         this.duelDeck = duelDeck;
     }

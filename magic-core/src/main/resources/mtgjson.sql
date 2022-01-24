@@ -80,8 +80,6 @@ CREATE TABLE Card
 CREATE TABLE Set_Card
 (
     card_id                    INTEGER PRIMARY KEY,
-    converted_mana_cost        FLOAT,
-    face_converted_mana_cost   FLOAT,
     flavor_name                TEXT,
     hand                       TEXT,
     has_alternative_deck_limit BOOLEAN NOT NULL DEFAULT 0,
@@ -95,6 +93,7 @@ CREATE TABLE Set_Card
     is_timeshifted             BOOLEAN NOT NULL DEFAULT 0,
     life                       TEXT,
     mana_cost                  TEXT,
+    mana_value                 FLOAT,
     original_release_date      TEXT,
     original_text              TEXT,
     original_type              TEXT,
@@ -107,7 +106,7 @@ CREATE TABLE Set_Card
 
 CREATE TABLE Token_Card
 (
-    card_id         INTEGER PRIMARY KEY,
+    card_id INTEGER PRIMARY KEY,
     CONSTRAINT FK_Card_Token_Card FOREIGN KEY (card_id) REFERENCES Card (id)
 );
 
