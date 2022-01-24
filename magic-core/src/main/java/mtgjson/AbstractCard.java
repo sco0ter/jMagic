@@ -48,15 +48,13 @@ public abstract class AbstractCard {
 
     private final String faceName;
 
+    private final Set<Finish> finishes;
+
     private final String flavorText;
 
     private final Set<FrameEffect> frameEffects;
 
     private final FrameVersion frameVersion;
-
-    private final boolean hasFoil;
-
-    private final boolean hasNonFoil;
 
     private final Identifiers identifiers;
 
@@ -114,11 +112,10 @@ public abstract class AbstractCard {
                  Set<Color> colors,
                  Integer edhrecRank,
                  String faceName,
+                 Set<Finish> finishes,
                  String flavorText,
                  Set<FrameEffect> frameEffects,
                  FrameVersion frameVersion,
-                 boolean hasFoil,
-                 boolean hasNonFoil,
                  Identifiers identifiers,
                  boolean isFullArt,
                  boolean isOnlineOnly,
@@ -150,11 +147,10 @@ public abstract class AbstractCard {
         this.colors = colors != null ? Set.copyOf(colors) : Collections.emptySet();
         this.edhrecRank = edhrecRank;
         this.faceName = faceName;
+        this.finishes = finishes;
         this.flavorText = flavorText;
         this.frameEffects = frameEffects != null ? Set.copyOf(frameEffects) : Collections.emptySet();
         this.frameVersion = frameVersion;
-        this.hasFoil = hasFoil;
-        this.hasNonFoil = hasNonFoil;
         this.identifiers = identifiers;
         this.isFullArt = isFullArt;
         this.isOnlineOnly = isOnlineOnly;
@@ -262,6 +258,15 @@ public abstract class AbstractCard {
     }
 
     /**
+     * The finishes of the card.
+     *
+     * @return The finishes of the card.
+     */
+    public final Set<Finish> getFinishes() {
+        return finishes;
+    }
+
+    /**
      * The italicized text found below the rules text that has no game function.
      *
      * @return The italicized text found below the rules text that has no game function.
@@ -286,24 +291,6 @@ public abstract class AbstractCard {
      */
     public final FrameVersion getFrameVersion() {
         return frameVersion;
-    }
-
-    /**
-     * If the card be found in foil.
-     *
-     * @return If the card be found in foil.
-     */
-    public final boolean hasFoil() {
-        return hasFoil;
-    }
-
-    /**
-     * If the card can be found in non-foil.
-     *
-     * @return If the card can be found in non-foil.
-     */
-    public final boolean hasNonFoil() {
-        return hasNonFoil;
     }
 
     /**

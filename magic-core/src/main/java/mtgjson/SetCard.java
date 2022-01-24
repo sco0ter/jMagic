@@ -81,8 +81,8 @@ public class SetCard extends AbstractCard {
 
     @ConstructorProperties(
             {"artist", "asciiName", "availability", "borderColor", "colorIdentity", "colorIndicator", "colors",
-                    "edhrecRank", "faceName", "flavorName", "flavorText", "foreignData", "frameEffects", "frameVersion",
-                    "hand", "hasContentWarning", "hasFoil", "hasAlternativeDeckLimit", "hasNonFoil", "identifiers",
+                    "edhrecRank", "faceName", "finishes", "flavorName", "flavorText", "foreignData", "frameEffects",
+                    "frameVersion", "hand", "hasContentWarning", "hasAlternativeDeckLimit", "identifiers",
                     "isAlternative", "isFullArt", "isOnlineOnly", "isOversized", "isPromo", "isReprint", "isReserved",
                     "isStarter", "isStorySpotlight", "isTextless", "isTimeshifted", "keywords", "layout", "legalities",
                     "life", "loyalty", "manaCost", "manaValue", "name", "number", "originalReleaseDate", "originalText",
@@ -98,6 +98,7 @@ public class SetCard extends AbstractCard {
                    Set<Color> colors,
                    Integer edhrecRank,
                    String faceName,
+                   Set<Finish> finishes,
                    String flavorName,
                    String flavorText,
                    Set<ForeignData> foreignData,
@@ -105,9 +106,7 @@ public class SetCard extends AbstractCard {
                    FrameVersion frameVersion,
                    String hand,
                    boolean hasContentWarning,
-                   boolean hasFoil,
                    boolean hasAlternativeDeckLimit,
-                   boolean hasNonFoil,
                    Identifiers identifiers,
                    boolean isAlternative,
                    boolean isFullArt,
@@ -152,8 +151,8 @@ public class SetCard extends AbstractCard {
                    List<String> variations,
                    String watermark) {
         super(artist, asciiName, availabilities, borderColor, colorIdentity, colorIndicator, colors, edhrecRank,
-                faceName, flavorText, frameEffects,
-                frameVersion, hasFoil, hasNonFoil, identifiers, isFullArt, isOnlineOnly, isPromo, isReprint, keywords,
+                faceName, finishes, flavorText, frameEffects,
+                frameVersion, identifiers, isFullArt, isOnlineOnly, isPromo, isReprint, keywords,
                 layout, loyalty, name, number, power, promoTypes, setCode, side, subtypes, supertypes, text, toughness,
                 type, types, uuid, watermark);
         this.flavorName = flavorName;

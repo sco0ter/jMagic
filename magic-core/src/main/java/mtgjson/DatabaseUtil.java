@@ -29,6 +29,7 @@ import static org.jooq.generated.Tables.CARD_AVAILABILITY;
 import static org.jooq.generated.Tables.CARD_COLOR;
 import static org.jooq.generated.Tables.CARD_COLOR_IDENTITY;
 import static org.jooq.generated.Tables.CARD_COLOR_INDICATOR;
+import static org.jooq.generated.Tables.CARD_FINISH;
 import static org.jooq.generated.Tables.CARD_FRAME_EFFECT;
 import static org.jooq.generated.Tables.SET;
 import static org.jooq.generated.Tables.SET_CARD;
@@ -52,6 +53,7 @@ import org.jooq.SQLDialect;
 import org.jooq.generated.tables.records.CardAvailabilityRecord;
 import org.jooq.generated.tables.records.CardColorIdentityRecord;
 import org.jooq.generated.tables.records.CardColorRecord;
+import org.jooq.generated.tables.records.CardFinishRecord;
 import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.SetCardRecord;
@@ -146,6 +148,12 @@ public final class DatabaseUtil {
             cardColorIdentityRecord.attach(context.configuration());
             cardColorIdentityRecord.store();
         }
+
+        for (Finish finish : card.getFinishes()) {
+            CardFinishRecord cardFinishRecord = new CardFinishRecord(null, cardId, finish);
+            cardFinishRecord.attach(context.configuration());
+            cardFinishRecord.store();
+        }
     }
 
     public List<SetCard> findCardsByName(String name) throws SQLException {
@@ -183,14 +191,19 @@ public final class DatabaseUtil {
                                         .from(CARD_FRAME_EFFECT)
                                         .where(CARD_FRAME_EFFECT.CARD_ID.eq(r.get(CARD.ID)))
                                         .fetchSet(CARD_FRAME_EFFECT.FRAME_EFFECT);
+                        java.util.Set<Finish> finishes =
+                                dslContext.selectDistinct(CARD_FINISH.FINISH)
+                                        .from(CARD_FINISH)
+                                        .where(CARD_FINISH.CARD_ID.eq(r.get(CARD.ID)))
+                                        .fetchSet(CARD_FINISH.FINISH);
                         return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
                                 r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
                                 r.get(CARD.EDHREC_RANK),
-                                r.get(CARD.FACE_NAME),
+                                r.get(CARD.FACE_NAME), finishes,
                                 r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), null, frameEffects,
                                 r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
-                                r.get(CARD.HAS_FOIL), r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
-                                r.get(CARD.HAS_NON_FOIL), null, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),
+                                r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
+                                null, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),
                                 r.get(CARD.IS_ONLINE_ONLY), r.get(SET_CARD.IS_OVERSIZED), r.get(CARD.IS_PROMO),
                                 r.get(CARD.IS_REPRINT), r.get(SET_CARD.IS_RESERVED), r.get(SET_CARD.IS_STARTER),
                                 r.get(SET_CARD.IS_STORY_SPOTLIGHT), r.get(SET_CARD.IS_TEXTLESS),

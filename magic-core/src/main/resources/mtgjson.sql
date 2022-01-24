@@ -34,11 +34,8 @@ CREATE TABLE Card
     edhrec_rank                 INTEGER,
     face_mana_value             FLOAT,
     face_name                   TEXT,
-    finishes                    TEXT,
     flavor_text                 TEXT,
     frame_version               ENUM ('_2003', '_1993', '_2015', '_1997', 'FUTURE'),
-    has_foil                    BOOLEAN  NOT NULL DEFAULT 0,
-    has_non_foil                BOOLEAN  NOT NULL DEFAULT 0,
     is_full_art                 BOOLEAN  NOT NULL DEFAULT 0,
     is_online_only              BOOLEAN  NOT NULL DEFAULT 0,
     is_promo                    BOOLEAN  NOT NULL DEFAULT 0,
@@ -158,4 +155,12 @@ CREATE TABLE Card_Color_Indicator
     card_id INTEGER REFERENCES Card,
     color   ENUM ('WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN'),
     CONSTRAINT FK_Card_Card_Color_Indicator FOREIGN KEY (card_id) REFERENCES Card (id)
+);
+
+CREATE TABLE Card_Finish
+(
+    id      INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id INTEGER REFERENCES Card,
+    finish  ENUM ('ETCHED', 'FOIL', 'GLOSSY', 'NONFOIL', 'SIGNED'),
+    CONSTRAINT FK_Card_Card_Finish FOREIGN KEY (card_id) REFERENCES Card (id)
 );

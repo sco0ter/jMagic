@@ -57,6 +57,7 @@ public final class DeckCard extends SetCard {
                     String duelDeck,
                     Integer edhrecRank,
                     String faceName,
+                    Set<Finish> finishes,
                     String flavorName,
                     String flavorText,
                     Set<ForeignData> foreignData,
@@ -111,8 +112,8 @@ public final class DeckCard extends SetCard {
                     List<String> variations,
                     String watermark) {
         super(artist, asciiName, availabilities, borderColor, colorIdentity, colorIndicator, colors, edhrecRank,
-                faceName, flavorName, flavorText, foreignData, frameEffects,
-                frameVersion, hand, hasContentWarning, hasFoil, hasAlternativeDeckLimit, hasNonFoil, identifiers,
+                faceName, finishes, flavorName, flavorText, foreignData, frameEffects,
+                frameVersion, hand, hasContentWarning, hasAlternativeDeckLimit, identifiers,
                 isAlternative, isFullArt, isOnlineOnly, isOversized, isPromo, isReprint, isReserved, isStarter,
                 isStorySpotlight, isTextless, isTimeshifted, keywords, layout, legalities, life, loyalty, manaCost,
                 manaValue, name, number, originalReleaseDate, originalText, originalType, otherFaceIds, power,

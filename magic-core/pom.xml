@@ -119,6 +119,12 @@
                                             <includeTypes>.*</includeTypes>
                                         </forcedType>
                                         <forcedType>
+                                            <userType>mtgjson.Finish</userType>
+                                            <enumConverter>true</enumConverter>
+                                            <includeExpression>.*\.Card_Finish\.FINISH</includeExpression>
+                                            <includeTypes>.*</includeTypes>
+                                        </forcedType>
+                                        <forcedType>
                                             <userType>mtgjson.Set.Type</userType>
                                             <enumConverter>true</enumConverter>
                                             <includeExpression>.*\.Set\.TYPE</includeExpression>

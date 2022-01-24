@@ -32,6 +32,7 @@ import liquibase.exception.LiquibaseException;
 import mtgjson.Availability;
 import mtgjson.BorderColor;
 import mtgjson.DatabaseUtil;
+import mtgjson.Finish;
 import mtgjson.FrameVersion;
 import mtgjson.Layout;
 import mtgjson.MtgJsonParser;
@@ -72,15 +73,16 @@ public class MtgDaoTest {
         Assert.assertEquals(chromeMox.getBorderColor(), BorderColor.BLACK);
         Assert.assertTrue(chromeMox.getColorIdentity().isEmpty());
         Assert.assertNull(chromeMox.getFaceName());
+        Assert.assertEquals(chromeMox.getFinishes().size(), 2);
+        Assert.assertTrue(chromeMox.getFinishes().contains(Finish.FOIL));
+        Assert.assertTrue(chromeMox.getFinishes().contains(Finish.NONFOIL));
         Assert.assertNull(chromeMox.getFlavorName());
         Assert.assertNull(chromeMox.getFlavorText());
         Assert.assertTrue(chromeMox.getFrameEffects().isEmpty());
         Assert.assertEquals(chromeMox.getFrameVersion(), FrameVersion._2003);
         Assert.assertNull(chromeMox.getHand());
-        Assert.assertTrue(chromeMox.hasFoil());
         Assert.assertFalse(chromeMox.hasContentWarning());
         Assert.assertFalse(chromeMox.hasAlternativeDeckLimit());
-        Assert.assertTrue(chromeMox.hasNonFoil());
         Assert.assertFalse(chromeMox.isAlternative());
         Assert.assertFalse(chromeMox.isFullArt());
         Assert.assertFalse(chromeMox.isOnlineOnly());
@@ -99,8 +101,9 @@ public class MtgDaoTest {
         Assert.assertEquals(chromeMox.getManaValue(), 0);
         Assert.assertEquals(chromeMox.getName(), "Chrome Mox");
         Assert.assertEquals(chromeMox.getNumber(), "152");
-        Assert.assertEquals(chromeMox.getOriginalText(), "Imprint When Chrome Mox comes into play, you may remove a nonartifact, nonland card in your hand from the game. (The removed card is imprinted on this artifact.)\n"
-                + "{T}: Add one mana of any of the imprinted card's colors to your mana pool.");
+        Assert.assertEquals(chromeMox.getOriginalText(),
+                "Imprint When Chrome Mox comes into play, you may remove a nonartifact, nonland card in your hand from the game. (The removed card is imprinted on this artifact.)\n"
+                        + "{T}: Add one mana of any of the imprinted card's colors to your mana pool.");
         Assert.assertEquals(chromeMox.getOriginalType(), "Artifact");
         Assert.assertEquals(chromeMox.getSetCode(), "MRD");
         Assert.assertNull(chromeMox.getSide());

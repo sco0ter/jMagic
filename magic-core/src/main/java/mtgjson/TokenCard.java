@@ -34,7 +34,7 @@ public final class TokenCard extends AbstractCard {
 
     @ConstructorProperties(
             {"artist", "asciiName", "availability", "borderColor", "colorIdentity", "colorIndicator", "colors",
-                    "edhrecRank", "faceName", "flavorText", "frameEffects", "frameVersion", "hasFoil", "hasNonFoil",
+                    "edhrecRank", "faceName", "finishes", "flavorText", "frameEffects", "frameVersion",
                     "identifiers", "isFullArt", "isOnlineOnly", "isPromo", "isReprint", "keywords",
                     "layout", "loyalty", "name", "number", "power", "promoTypes", "reverseRelated", "setCode", "side",
                     "subtypes",
@@ -48,11 +48,10 @@ public final class TokenCard extends AbstractCard {
                      Set<Color> colors,
                      Integer edhrecRank,
                      String faceName,
+                     Set<Finish> finishes,
                      String flavorText,
                      Set<FrameEffect> frameEffects,
                      FrameVersion frameVersion,
-                     boolean hasFoil,
-                     boolean hasNonFoil,
                      Identifiers identifiers,
                      boolean isFullArt,
                      boolean isOnlineOnly,
@@ -77,10 +76,9 @@ public final class TokenCard extends AbstractCard {
                      String uuid,
                      String watermark) {
         super(artist, asciiName, availabilities, borderColor, colorIdentity, colorIndicator, colors, edhrecRank,
-                faceName, flavorText, frameEffects,
-                frameVersion, hasFoil, hasNonFoil, identifiers, isFullArt, isOnlineOnly, isPromo, isReprint, keywords,
-                layout, loyalty, name, number, power, promoTypes, setCode, side, subtypes, supertypes, text, toughness,
-                type, types, uuid, watermark);
+                faceName, finishes, flavorText, frameEffects, frameVersion, identifiers, isFullArt, isOnlineOnly,
+                isPromo, isReprint, keywords, layout, loyalty, name, number, power, promoTypes, setCode, side, subtypes,
+                supertypes, text, toughness, type, types, uuid, watermark);
         this.reverseRelated = reverseRelated;
     }
 
