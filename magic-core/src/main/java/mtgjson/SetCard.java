@@ -31,6 +31,8 @@ import java.util.Set;
 
 public class SetCard extends AbstractCard {
 
+    private final double faceManaValue;
+
     private final String flavorName;
 
     private final Set<ForeignData> foreignData;
@@ -81,14 +83,14 @@ public class SetCard extends AbstractCard {
 
     @ConstructorProperties(
             {"artist", "asciiName", "availability", "borderColor", "colorIdentity", "colorIndicator", "colors",
-                    "edhrecRank", "faceName", "finishes", "flavorName", "flavorText", "foreignData", "frameEffects",
-                    "frameVersion", "hand", "hasContentWarning", "hasAlternativeDeckLimit", "identifiers",
-                    "isAlternative", "isFullArt", "isOnlineOnly", "isOversized", "isPromo", "isReprint", "isReserved",
-                    "isStarter", "isStorySpotlight", "isTextless", "isTimeshifted", "keywords", "layout", "legalities",
-                    "life", "loyalty", "manaCost", "manaValue", "name", "number", "originalReleaseDate", "originalText",
-                    "originalType", "otherFaceIds", "power", "printings", "promoTypes", "rarity", "rulings", "setCode",
-                    "side", "subtypes", "supertypes", "text", "toughness", "type", "types", "uuid", "variations",
-                    "watermark"})
+                    "edhrecRank", "faceName", "faceManaValue", "finishes", "flavorName", "flavorText", "foreignData",
+                    "frameEffects", "frameVersion", "hand", "hasContentWarning", "hasAlternativeDeckLimit",
+                    "identifiers", "isAlternative", "isFullArt", "isOnlineOnly", "isOversized", "isPromo", "isReprint",
+                    "isReserved", "isStarter", "isStorySpotlight", "isTextless", "isTimeshifted", "keywords", "layout",
+                    "legalities", "life", "loyalty", "manaCost", "manaValue", "name", "number", "originalReleaseDate",
+                    "originalText", "originalType", "otherFaceIds", "power", "printings", "promoTypes", "rarity",
+                    "rulings", "setCode", "side", "subtypes", "supertypes", "text", "toughness", "type", "types",
+                    "uuid", "variations", "watermark"})
     public SetCard(String artist,
                    String asciiName,
                    Set<Availability> availabilities,
@@ -98,6 +100,7 @@ public class SetCard extends AbstractCard {
                    Set<Color> colors,
                    Integer edhrecRank,
                    String faceName,
+                   double faceManaValue,
                    Set<Finish> finishes,
                    String flavorName,
                    String flavorText,
@@ -155,6 +158,7 @@ public class SetCard extends AbstractCard {
                 frameVersion, identifiers, isFullArt, isOnlineOnly, isPromo, isReprint, keywords,
                 layout, loyalty, name, number, power, promoTypes, setCode, side, subtypes, supertypes, text, toughness,
                 type, types, uuid, watermark);
+        this.faceManaValue = faceManaValue;
         this.flavorName = flavorName;
         this.foreignData = foreignData;
         this.hand = hand;
@@ -179,6 +183,15 @@ public class SetCard extends AbstractCard {
         this.rarity = rarity;
         this.rulings = rulings;
         this.variations = variations;
+    }
+
+    /**
+     * The mana value of the face for either half or part of the card. Formerly known as "converted mana cost".
+     *
+     * @return The mana value of the face for either half or part of the card. Formerly known as "converted mana cost".
+     */
+    public final double getFaceManaValue() {
+        return faceManaValue;
     }
 
     /**

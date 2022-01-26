@@ -32,7 +32,6 @@ CREATE TABLE Card
     ascii_name                  TEXT,
     border_color                ENUM ('BLACK', 'WHITE', 'BORDERLESS', 'SILVER', 'GOLD'),
     edhrec_rank                 INTEGER,
-    face_mana_value             FLOAT,
     face_name                   TEXT,
     flavor_text                 TEXT,
     frame_version               ENUM ('_2003', '_1993', '_2015', '_1997', 'FUTURE'),
@@ -77,6 +76,7 @@ CREATE TABLE Card
 CREATE TABLE Set_Card
 (
     card_id                    INTEGER PRIMARY KEY,
+    face_mana_value            FLOAT,
     flavor_name                TEXT,
     hand                       TEXT,
     has_alternative_deck_limit BOOLEAN NOT NULL DEFAULT 0,

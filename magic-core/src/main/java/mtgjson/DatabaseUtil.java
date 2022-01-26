@@ -199,7 +199,7 @@ public final class DatabaseUtil {
                         return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
                                 r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
                                 r.get(CARD.EDHREC_RANK),
-                                r.get(CARD.FACE_NAME), finishes,
+                                r.get(CARD.FACE_NAME), r.get(SET_CARD.FACE_MANA_VALUE), finishes,
                                 r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), null, frameEffects,
                                 r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
                                 r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),

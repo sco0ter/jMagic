@@ -73,6 +73,7 @@ public class MtgDaoTest {
         Assert.assertEquals(chromeMox.getBorderColor(), BorderColor.BLACK);
         Assert.assertTrue(chromeMox.getColorIdentity().isEmpty());
         Assert.assertNull(chromeMox.getFaceName());
+        Assert.assertEquals(chromeMox.getFaceManaValue(), 0);
         Assert.assertEquals(chromeMox.getFinishes().size(), 2);
         Assert.assertTrue(chromeMox.getFinishes().contains(Finish.FOIL));
         Assert.assertTrue(chromeMox.getFinishes().contains(Finish.NONFOIL));
