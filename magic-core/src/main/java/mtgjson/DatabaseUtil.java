@@ -32,6 +32,7 @@ import static org.jooq.generated.Tables.CARD_COLOR_INDICATOR;
 import static org.jooq.generated.Tables.CARD_FINISH;
 import static org.jooq.generated.Tables.CARD_FRAME_EFFECT;
 import static org.jooq.generated.Tables.FOREIGN_DATA;
+import static org.jooq.generated.Tables.IDENTIFIERS;
 import static org.jooq.generated.Tables.SET;
 import static org.jooq.generated.Tables.SET_CARD;
 import static org.jooq.generated.Tables.TOKEN_CARD;
@@ -62,6 +63,7 @@ import org.jooq.generated.tables.records.CardFinishRecord;
 import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
 import org.jooq.generated.tables.records.ForeignDataRecord;
+import org.jooq.generated.tables.records.IdentifiersRecord;
 import org.jooq.generated.tables.records.SetCardRecord;
 import org.jooq.generated.tables.records.SetRecord;
 import org.jooq.generated.tables.records.TokenCardRecord;
@@ -170,6 +172,16 @@ public final class DatabaseUtil {
             cardFinishRecord.attach(context.configuration());
             cardFinishRecord.store();
         }
+
+        Identifiers identifiers = card.getIdentifiers();
+        IdentifiersRecord identifiersRecord = new IdentifiersRecord(cardId, identifiers.getCardKingdomFoilId(),
+                identifiers.getCardKingdomId(), identifiers.getMcmId(), identifiers.getMcmMetaId(),
+                identifiers.getMtgArenaId(), identifiers.getMtgoFoilId(), identifiers.getMtgoId(),
+                identifiers.getMtgjsonV4Id(), identifiers.getMultiverseId(), identifiers.getScryfallId(),
+                identifiers.getScryfallOracleId(), identifiers.getScryfallIllustrationId(),
+                identifiers.getTcgplayerProductId());
+        identifiersRecord.attach(context.configuration());
+        identifiersRecord.store();
     }
 
     private static List<SetCard> recordsToSetCards(DSLContext dslContext, Stream<Record> records) {
@@ -208,6 +220,9 @@ public final class DatabaseUtil {
                     new HashSet<>(dslContext.selectFrom(FOREIGN_DATA)
                             .where(FOREIGN_DATA.CARD_ID.eq(r.get(CARD.ID)))
                             .fetchInto(ForeignData.class));
+            Identifiers identifiers = dslContext.selectFrom(IDENTIFIERS)
+                    .where(IDENTIFIERS.CARD_ID.eq(r.get(CARD.ID)))
+                    .fetchSingleInto(Identifiers.class);
             return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
                     r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
                     r.get(CARD.EDHREC_RANK),
@@ -215,7 +230,7 @@ public final class DatabaseUtil {
                     r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), foreignData, frameEffects,
                     r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
                     r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
-                    null, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),
+                    identifiers, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),
                     r.get(CARD.IS_ONLINE_ONLY), r.get(SET_CARD.IS_OVERSIZED), r.get(CARD.IS_PROMO),
                     r.get(CARD.IS_REPRINT), r.get(SET_CARD.IS_RESERVED), r.get(SET_CARD.IS_STARTER),
                     r.get(SET_CARD.IS_STORY_SPOTLIGHT), r.get(SET_CARD.IS_TEXTLESS),

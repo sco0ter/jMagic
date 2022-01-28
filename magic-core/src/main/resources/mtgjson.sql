@@ -178,3 +178,22 @@ CREATE TABLE Foreign_Data
     type          TEXT,
     CONSTRAINT FK_Card_Foreign_Data FOREIGN KEY (card_id) REFERENCES Set_Card (card_id)
 );
+
+CREATE TABLE Identifiers
+(
+    card_id                  INTEGER PRIMARY KEY,
+    card_kingdom_foil_id     TEXT,
+    card_kingdom_id          TEXT,
+    mcm_id                   TEXT,
+    mcm_meta_id              TEXT,
+    mtg_arena_id             TEXT,
+    mtgo_foil_id             TEXT,
+    mtgo_id                  TEXT,
+    mtgjson_v4_id            TEXT,
+    multiverse_id            TEXT,
+    scryfall_id              TEXT,
+    scryfall_oracle_id       TEXT,
+    scryfall_illustration_id TEXT,
+    tcgplayer_product_id     TEXT,
+    CONSTRAINT FK_Card_Identifiers FOREIGN KEY (card_id) REFERENCES Card (id)
+);

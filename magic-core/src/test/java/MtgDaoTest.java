@@ -87,6 +87,7 @@ public class MtgDaoTest {
         Assert.assertNull(chromeMox.getHand());
         Assert.assertFalse(chromeMox.hasContentWarning());
         Assert.assertFalse(chromeMox.hasAlternativeDeckLimit());
+        Assert.assertNotNull(chromeMox.getIdentifiers());
         Assert.assertFalse(chromeMox.isAlternative());
         Assert.assertFalse(chromeMox.isFullArt());
         Assert.assertFalse(chromeMox.isOnlineOnly());
