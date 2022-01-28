@@ -31,12 +31,14 @@ import static org.jooq.generated.Tables.CARD_COLOR_IDENTITY;
 import static org.jooq.generated.Tables.CARD_COLOR_INDICATOR;
 import static org.jooq.generated.Tables.CARD_FINISH;
 import static org.jooq.generated.Tables.CARD_FRAME_EFFECT;
+import static org.jooq.generated.Tables.FOREIGN_DATA;
 import static org.jooq.generated.Tables.SET;
 import static org.jooq.generated.Tables.SET_CARD;
 import static org.jooq.generated.Tables.TOKEN_CARD;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -52,15 +54,14 @@ import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.jooq.DSLContext;
 import org.jooq.Record;
-import org.jooq.Result;
 import org.jooq.SQLDialect;
-import org.jooq.generated.tables.Card;
 import org.jooq.generated.tables.records.CardAvailabilityRecord;
 import org.jooq.generated.tables.records.CardColorIdentityRecord;
 import org.jooq.generated.tables.records.CardColorRecord;
 import org.jooq.generated.tables.records.CardFinishRecord;
 import org.jooq.generated.tables.records.CardFrameEffectRecord;
 import org.jooq.generated.tables.records.CardRecord;
+import org.jooq.generated.tables.records.ForeignDataRecord;
 import org.jooq.generated.tables.records.SetCardRecord;
 import org.jooq.generated.tables.records.SetRecord;
 import org.jooq.generated.tables.records.TokenCardRecord;
@@ -102,6 +103,16 @@ public final class DatabaseUtil {
                 SetCardRecord setCardRecord = context.newRecord(SET_CARD, card);
                 setCardRecord.setCardId(cardRecord.getId());
                 setCardRecord.store();
+
+                for (ForeignData foreignData : card.getForeignData()) {
+                    ForeignDataRecord foreignDataRecord =
+                            new ForeignDataRecord(null, cardRecord.getId(), foreignData.getFaceName(),
+                                    foreignData.getFlavorText(), foreignData.getLanguage(),
+                                    foreignData.getMultiverseId(), foreignData.getName(), foreignData.getText(),
+                                    foreignData.getType());
+                    foreignDataRecord.attach(context.configuration());
+                    foreignDataRecord.store();
+                }
 
                 insertCard(card, context, cardRecord.getId());
             }
@@ -193,11 +204,15 @@ public final class DatabaseUtil {
                             .from(CARD_FINISH)
                             .where(CARD_FINISH.CARD_ID.eq(r.get(CARD.ID)))
                             .fetchSet(CARD_FINISH.FINISH);
+            java.util.Set<ForeignData> foreignData =
+                    new HashSet<>(dslContext.selectFrom(FOREIGN_DATA)
+                            .where(FOREIGN_DATA.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchInto(ForeignData.class));
             return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
                     r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
                     r.get(CARD.EDHREC_RANK),
                     r.get(CARD.FACE_NAME), r.get(SET_CARD.FACE_MANA_VALUE), finishes,
-                    r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), null, frameEffects,
+                    r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), foreignData, frameEffects,
                     r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
                     r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
                     null, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),

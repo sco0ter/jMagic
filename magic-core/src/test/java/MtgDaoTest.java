@@ -81,6 +81,7 @@ public class MtgDaoTest {
         Assert.assertTrue(chromeMox.getFinishes().contains(Finish.NONFOIL));
         Assert.assertNull(chromeMox.getFlavorName());
         Assert.assertNull(chromeMox.getFlavorText());
+        Assert.assertEquals(chromeMox.getForeignData().size(), 6);
         Assert.assertTrue(chromeMox.getFrameEffects().isEmpty());
         Assert.assertEquals(chromeMox.getFrameVersion(), FrameVersion._2003);
         Assert.assertNull(chromeMox.getHand());

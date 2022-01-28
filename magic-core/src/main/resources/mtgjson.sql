@@ -164,3 +164,17 @@ CREATE TABLE Card_Finish
     finish  ENUM ('ETCHED', 'FOIL', 'GLOSSY', 'NONFOIL', 'SIGNED'),
     CONSTRAINT FK_Card_Card_Finish FOREIGN KEY (card_id) REFERENCES Card (id)
 );
+
+CREATE TABLE Foreign_Data
+(
+    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
+    card_id       INTEGER REFERENCES Set_Card,
+    face_name     TEXT,
+    flavor_text   TEXT,
+    language      TEXT,
+    multiverse_id INTEGER,
+    name          TEXT,
+    text          TEXT,
+    type          TEXT,
+    CONSTRAINT FK_Card_Foreign_Data FOREIGN KEY (card_id) REFERENCES Set_Card (card_id)
+);
