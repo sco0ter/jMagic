@@ -22,7 +22,7 @@ CREATE TABLE Set
     release_date       DATE,
     tcgplayer_group_id INTEGER,
     total_set_size     INTEGER,
-    type               ENUM ('core', 'masters', 'expansion', 'memorabilia', 'commander', 'starter', 'archenemy', 'box', 'draft_innovation', 'from_the_vault', 'funny', 'duel_deck', 'masterpiece', 'promo', 'premium_deck', 'planechase', 'token', 'vanguard', 'treasure_chest', 'spellbook')
+    type               ENUM ('CORE', 'MASTERS', 'EXPANSION', 'MEMORABILIA', 'COMMANDER', 'STARTER', 'ARCHENEMY', 'BOX', 'DRAFT_INNOVATION', 'FROM_THE_VAULT', 'FUNNY', 'DUEL_DECK', 'MASTERPIECE', 'PROMO', 'PREMIUM_DECK', 'PLANECHASE', 'TOKEN', 'VANGUARD', 'TREASURE_CHEST', 'SPELLBOOK')
 );
 
 CREATE TABLE Card

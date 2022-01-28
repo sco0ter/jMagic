@@ -118,7 +118,9 @@ public final class Set {
         this.block = block;
         this.code = Objects.requireNonNull(code);
         this.codeV3 = codeV3;
-        this.cards.addAll(cards);
+        if (cards != null) {
+            this.cards.addAll(cards);
+        }
         this.isForeignOnly = isForeignOnly;
         this.isFoilOnly = isFoilOnly;
         this.isNonFoilOnly = isNonFoilOnly;
@@ -134,7 +136,9 @@ public final class Set {
         this.releaseDate = Objects.requireNonNull(releaseDate);
         this.parentCode = parentCode;
         this.tcgplayerGroupId = tcgplayerGroupId;
-        this.tokens.addAll(tokens);
+        if (tokens != null) {
+            this.tokens.addAll(tokens);
+        }
         this.totalSetSize = Objects.requireNonNull(totalSetSize);
         this.translations = translations;
         this.type = Objects.requireNonNull(type);

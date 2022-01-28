@@ -25,6 +25,8 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,5 +112,26 @@ public class MtgDaoTest {
         Assert.assertNull(chromeMox.getSide());
         Assert.assertEquals(chromeMox.getType(), "Artifact");
         Assert.assertNull(chromeMox.getWatermark());
+    }
+
+    @Test
+    public void findSets() throws SQLException {
+        List<Set> sets = mtgDao.findSets();
+        Assert.assertEquals(sets.size(), 1);
+        Set set = sets.get(0);
+        Assert.assertEquals(set.getCards().size(), set.getTotalSetSize().intValue());
+        Assert.assertEquals(set.getCode(), "MRD");
+        Assert.assertEquals(set.getBaseSetSize(), Integer.valueOf(306));
+        Assert.assertEquals(set.getBlock(), "Mirrodin");
+        Assert.assertNull(set.getCodeV3());
+        Assert.assertEquals(set.getKeyruneCode(), "MRD");
+        Assert.assertEquals(set.getMcmId(), Integer.valueOf(45));
+        Assert.assertEquals(set.getMcmName(), "Mirrodin");
+        Assert.assertEquals(set.getMtgoCode(), "MRD");
+        Assert.assertEquals(set.getName(), "Mirrodin");
+        Assert.assertEquals(set.getReleaseDate(), LocalDate.of(2003, Month.OCTOBER, 2));
+        Assert.assertEquals(set.getTcgplayerGroupId(), Integer.valueOf(75));
+        Assert.assertEquals(set.getTotalSetSize(), Integer.valueOf(306));
+        Assert.assertEquals(set.getType(), Set.Type.EXPANSION);
     }
 }

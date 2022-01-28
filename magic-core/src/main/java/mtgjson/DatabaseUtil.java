@@ -38,6 +38,8 @@ import static org.jooq.generated.Tables.TOKEN_CARD;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.sql.DataSource;
 
 import liquibase.Contexts;
@@ -49,7 +51,10 @@ import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
 import org.jooq.SQLDialect;
+import org.jooq.generated.tables.Card;
 import org.jooq.generated.tables.records.CardAvailabilityRecord;
 import org.jooq.generated.tables.records.CardColorIdentityRecord;
 import org.jooq.generated.tables.records.CardColorRecord;
@@ -156,65 +161,112 @@ public final class DatabaseUtil {
         }
     }
 
+    private static List<SetCard> recordsToSetCards(DSLContext dslContext, Stream<Record> records) {
+        return records.map(r -> {
+            java.util.Set<Availability> availabilities =
+                    dslContext.selectDistinct(CARD_AVAILABILITY.AVAILABILITY)
+                            .from(CARD_AVAILABILITY)
+                            .where(CARD_AVAILABILITY.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchSet(CARD_AVAILABILITY.AVAILABILITY);
+            java.util.Set<Color> colorIdentities =
+                    dslContext.selectDistinct(CARD_COLOR_IDENTITY.COLOR)
+                            .from(CARD_COLOR_IDENTITY)
+                            .where(CARD_COLOR_IDENTITY.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchSet(CARD_COLOR_IDENTITY.COLOR);
+            java.util.Set<Color> colorIndicators =
+                    dslContext.selectDistinct(CARD_COLOR_INDICATOR.COLOR)
+                            .from(CARD_COLOR_INDICATOR)
+                            .where(CARD_COLOR_INDICATOR.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchSet(CARD_COLOR_INDICATOR.COLOR);
+            java.util.Set<Color> colors =
+                    dslContext.selectDistinct(CARD_COLOR.COLOR)
+                            .from(CARD_COLOR)
+                            .where(CARD_COLOR.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchSet(CARD_COLOR.COLOR);
+            java.util.Set<FrameEffect> frameEffects =
+                    dslContext.selectDistinct(CARD_FRAME_EFFECT.FRAME_EFFECT)
+                            .from(CARD_FRAME_EFFECT)
+                            .where(CARD_FRAME_EFFECT.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchSet(CARD_FRAME_EFFECT.FRAME_EFFECT);
+            java.util.Set<Finish> finishes =
+                    dslContext.selectDistinct(CARD_FINISH.FINISH)
+                            .from(CARD_FINISH)
+                            .where(CARD_FINISH.CARD_ID.eq(r.get(CARD.ID)))
+                            .fetchSet(CARD_FINISH.FINISH);
+            return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
+                    r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
+                    r.get(CARD.EDHREC_RANK),
+                    r.get(CARD.FACE_NAME), r.get(SET_CARD.FACE_MANA_VALUE), finishes,
+                    r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), null, frameEffects,
+                    r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
+                    r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
+                    null, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),
+                    r.get(CARD.IS_ONLINE_ONLY), r.get(SET_CARD.IS_OVERSIZED), r.get(CARD.IS_PROMO),
+                    r.get(CARD.IS_REPRINT), r.get(SET_CARD.IS_RESERVED), r.get(SET_CARD.IS_STARTER),
+                    r.get(SET_CARD.IS_STORY_SPOTLIGHT), r.get(SET_CARD.IS_TEXTLESS),
+                    r.get(SET_CARD.IS_TIMESHIFTED), null, r.get(CARD.LAYOUT), null, r.get(SET_CARD.LIFE),
+                    r.get(CARD.LOYALTY), r.get(SET_CARD.MANA_COST), r.get(SET_CARD.MANA_VALUE),
+                    r.get(CARD.NAME), r.get(CARD.NUMBER), null, r.get(SET_CARD.ORIGINAL_TEXT),
+                    r.get(SET_CARD.ORIGINAL_TYPE), null, r.get(CARD.POWER), null, null,
+                    r.get(SET_CARD.RARITY), null, r.get(CARD.SET_CODE), r.get(CARD.SIDE), null, null, null,
+                    r.get(CARD.TOUGHNESS), r.get(CARD.TYPE), null, null, null, r.get(CARD.WATERMARK)
+            );
+        }).collect(Collectors.toList());
+    }
+
     public List<SetCard> findCardsByName(String name) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
 
             DSLContext dslContext = DSL.using(connection, SQLDialect.DEFAULT);
-            return dslContext.select()
+            return recordsToSetCards(dslContext, dslContext.select()
                     .from(SET_CARD)
                     .join(CARD)
                     .on(SET_CARD.CARD_ID.eq(CARD.ID))
                     .where(CARD.NAME.like(name))
-                    .fetch(r -> {
-                        java.util.Set<Availability> availabilities =
-                                dslContext.selectDistinct(CARD_AVAILABILITY.AVAILABILITY)
-                                        .from(CARD_AVAILABILITY)
-                                        .where(CARD_AVAILABILITY.CARD_ID.eq(r.get(CARD.ID)))
-                                        .fetchSet(CARD_AVAILABILITY.AVAILABILITY);
-                        java.util.Set<Color> colorIdentities =
-                                dslContext.selectDistinct(CARD_COLOR_IDENTITY.COLOR)
-                                        .from(CARD_COLOR_IDENTITY)
-                                        .where(CARD_COLOR_IDENTITY.CARD_ID.eq(r.get(CARD.ID)))
-                                        .fetchSet(CARD_COLOR_IDENTITY.COLOR);
-                        java.util.Set<Color> colorIndicators =
-                                dslContext.selectDistinct(CARD_COLOR_INDICATOR.COLOR)
-                                        .from(CARD_COLOR_INDICATOR)
-                                        .where(CARD_COLOR_INDICATOR.CARD_ID.eq(r.get(CARD.ID)))
-                                        .fetchSet(CARD_COLOR_INDICATOR.COLOR);
-                        java.util.Set<Color> colors =
-                                dslContext.selectDistinct(CARD_COLOR.COLOR)
-                                        .from(CARD_COLOR)
-                                        .where(CARD_COLOR.CARD_ID.eq(r.get(CARD.ID)))
-                                        .fetchSet(CARD_COLOR.COLOR);
-                        java.util.Set<FrameEffect> frameEffects =
-                                dslContext.selectDistinct(CARD_FRAME_EFFECT.FRAME_EFFECT)
-                                        .from(CARD_FRAME_EFFECT)
-                                        .where(CARD_FRAME_EFFECT.CARD_ID.eq(r.get(CARD.ID)))
-                                        .fetchSet(CARD_FRAME_EFFECT.FRAME_EFFECT);
-                        java.util.Set<Finish> finishes =
-                                dslContext.selectDistinct(CARD_FINISH.FINISH)
-                                        .from(CARD_FINISH)
-                                        .where(CARD_FINISH.CARD_ID.eq(r.get(CARD.ID)))
-                                        .fetchSet(CARD_FINISH.FINISH);
-                        return new SetCard(r.get(CARD.ARTIST), r.get(CARD.ASCII_NAME), availabilities,
-                                r.get(CARD.BORDER_COLOR), colorIdentities, colorIndicators, colors,
-                                r.get(CARD.EDHREC_RANK),
-                                r.get(CARD.FACE_NAME), r.get(SET_CARD.FACE_MANA_VALUE), finishes,
-                                r.get(SET_CARD.FLAVOR_NAME), r.get(CARD.FLAVOR_TEXT), null, frameEffects,
-                                r.get(CARD.FRAME_VERSION), r.get(SET_CARD.HAND), r.get(SET_CARD.HAS_CONTENT_WARNING),
-                                r.get(SET_CARD.HAS_ALTERNATIVE_DECK_LIMIT),
-                                null, r.get(SET_CARD.IS_ALTERNATIVE), r.get(CARD.IS_FULL_ART),
-                                r.get(CARD.IS_ONLINE_ONLY), r.get(SET_CARD.IS_OVERSIZED), r.get(CARD.IS_PROMO),
-                                r.get(CARD.IS_REPRINT), r.get(SET_CARD.IS_RESERVED), r.get(SET_CARD.IS_STARTER),
-                                r.get(SET_CARD.IS_STORY_SPOTLIGHT), r.get(SET_CARD.IS_TEXTLESS),
-                                r.get(SET_CARD.IS_TIMESHIFTED), null, r.get(CARD.LAYOUT), null, r.get(SET_CARD.LIFE),
-                                r.get(CARD.LOYALTY), r.get(SET_CARD.MANA_COST), r.get(SET_CARD.MANA_VALUE),
-                                r.get(CARD.NAME), r.get(CARD.NUMBER), null, r.get(SET_CARD.ORIGINAL_TEXT),
-                                r.get(SET_CARD.ORIGINAL_TYPE), null, r.get(CARD.POWER), null, null,
-                                r.get(SET_CARD.RARITY), null, r.get(CARD.SET_CODE), r.get(CARD.SIDE), null, null, null,
-                                r.get(CARD.TOUGHNESS), r.get(CARD.TYPE), null, null, null, r.get(CARD.WATERMARK)
-                        );
+                    .fetch().stream());
+        }
+    }
 
+    public List<Set> findSets() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+
+            DSLContext dslContext = DSL.using(connection, SQLDialect.DEFAULT);
+            return dslContext.select()
+                    .from(SET)
+                    .fetch(r -> {
+                        Stream<Record> records = dslContext.select()
+                                .from(SET_CARD)
+                                .join(CARD)
+                                .on(SET_CARD.CARD_ID.eq(CARD.ID))
+                                .where(CARD.SET_CODE.eq(r.get(SET.CODE)))
+                                .fetch().stream();
+
+                        java.util.List<SetCard> cards = recordsToSetCards(dslContext, records);
+                        return new Set(r.get(SET.BASE_SET_SIZE),
+                                r.get(SET.BLOCK),
+                                r.get(SET.CODE),
+                                r.get(SET.CODE_V3),
+                                cards,
+                                r.get(SET.IS_FOREIGN_ONLY),
+                                r.get(SET.IS_FOIL_ONLY),
+                                r.get(SET.IS_NON_FOIL_ONLY),
+                                r.get(SET.IS_ONLINE_ONLY),
+                                r.get(SET.IS_PAPER_ONLY),
+                                r.get(SET.IS_PARTIAL_PREVIEW),
+                                r.get(SET.KEYRUNE_CODE),
+                                r.get(SET.MCM_ID),
+                                r.get(SET.MCM_ID_EXTRAS),
+                                r.get(SET.MCM_NAME),
+                                r.get(SET.MTGO_CODE),
+                                r.get(SET.NAME),
+                                r.get(SET.RELEASE_DATE),
+                                r.get(SET.PARENT_CODE),
+                                r.get(SET.TCGPLAYER_GROUP_ID),
+                                null,
+                                r.get(SET.TOTAL_SET_SIZE),
+                                null,
+                                r.get(SET.TYPE)
+                        );
                     });
         }
     }
