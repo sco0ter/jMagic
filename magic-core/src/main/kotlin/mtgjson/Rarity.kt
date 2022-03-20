@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Christian Schudt
+ * Copyright (c) 2022 Christian Schudt
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,13 +22,15 @@
  * SOFTWARE.
  */
 
-package mtgjson;
+package mtgjson
 
-public enum PromoType {
+import com.fasterxml.jackson.annotation.JsonValue
 
-    // "promoTypes": ["arenaleague", "boosterfun", "boxtopper", "brawldeck", "bundle", "buyabox", "convention",
-    // "datestamped", "draftweekend", "duels", "event", "fnm", "gameday", "gateway", "giftbox", "godzillaseries",
-    // "instore", "intropack", "jpwalker", "judgegift", "league", "mediainsert", "openhouse", "planeswalkerstamped",
-    // "playerrewards", "premiereshop", "prerelease", "promopack", "release", "setpromo", "stamped", "themepack",
-    // "tourney", "wizardsplaynetwork"]
+enum class Rarity(@JsonValue val value: String) {
+    COMMON("common"),
+    UNCOMMON("uncommon"),
+    RARE("rare"),
+    MYTHIC("mythic"),
+    BONUS("bonus"),
+    SPECIAL("special");
 }

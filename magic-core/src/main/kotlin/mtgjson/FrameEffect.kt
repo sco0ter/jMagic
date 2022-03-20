@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Christian Schudt
+ * Copyright (c) 2022 Christian Schudt
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +22,29 @@
  * SOFTWARE.
  */
 
-package mtgjson;
+package mtgjson
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonValue
 
-public enum Availability {
-
-    ARENA("arena"),
-    DREAMCAST("dreamcast"),
-    MTGO("mtgo"),
-    PAPER("paper"),
-    SHANDALAR("shandalar");
-
-    @JsonValue
-    private final String value;
-
-    Availability(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+enum class FrameEffect(@JsonValue val value: String) {
+    COLORSHIFTED("colorshifted"),
+    COMPANION("companion"),
+    COMPASSLANDDFC("compasslanddfc"),
+    DEVOID("devoid"),
+    DRAFT("draft"),
+    ETCHED("etched"),
+    EXTENDEDART("extendedart"),
+    FULLART("fullart"),
+    INVERTED("inverted"),
+    LEGENDARY("legendary"),
+    MIRACLE("miracle"),
+    MOONELDRAZIDFC("mooneldrazidfc"),
+    NYXBORN("nyxborn"),
+    NYXTOUCHED("nyxtouched"),
+    ORIGINPWDFC("originpwdfc"),
+    SHOWCASE("showcase"),
+    SNOW("snow"),
+    SUNMOONDFC("sunmoondfc"),
+    TOMBSTONE("tombstone"),
+    WAXINGANDWANINGMOONDFC("waxingandwaningmoondfc");
 }

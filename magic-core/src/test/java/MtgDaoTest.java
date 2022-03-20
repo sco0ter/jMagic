@@ -74,6 +74,7 @@ public class MtgDaoTest {
         Assert.assertTrue(chromeMox.getAvailabilities().contains(Availability.PAPER));
         Assert.assertEquals(chromeMox.getBorderColor(), BorderColor.BLACK);
         Assert.assertTrue(chromeMox.getColorIdentity().isEmpty());
+        Assert.assertTrue(chromeMox.getColorIndicator().isEmpty());
         Assert.assertNull(chromeMox.getFaceName());
         Assert.assertEquals(chromeMox.getFaceManaValue(), 0);
         Assert.assertEquals(chromeMox.getFinishes().size(), 2);
@@ -113,6 +114,7 @@ public class MtgDaoTest {
         Assert.assertEquals(chromeMox.getSetCode(), "MRD");
         Assert.assertNull(chromeMox.getSide());
         Assert.assertEquals(chromeMox.getType(), "Artifact");
+        Assert.assertNull(chromeMox.getUuid());
         Assert.assertNull(chromeMox.getWatermark());
     }
 
@@ -121,9 +123,9 @@ public class MtgDaoTest {
         List<Set> sets = mtgDao.findSets();
         Assert.assertEquals(sets.size(), 1);
         Set set = sets.get(0);
-        Assert.assertEquals(set.getCards().size(), set.getTotalSetSize().intValue());
+        Assert.assertEquals(set.getCards().size(), set.getTotalSetSize());
         Assert.assertEquals(set.getCode(), "MRD");
-        Assert.assertEquals(set.getBaseSetSize(), Integer.valueOf(306));
+        Assert.assertEquals(set.getBaseSetSize(), 306);
         Assert.assertEquals(set.getBlock(), "Mirrodin");
         Assert.assertNull(set.getCodeV3());
         Assert.assertEquals(set.getKeyruneCode(), "MRD");
@@ -133,7 +135,7 @@ public class MtgDaoTest {
         Assert.assertEquals(set.getName(), "Mirrodin");
         Assert.assertEquals(set.getReleaseDate(), LocalDate.of(2003, Month.OCTOBER, 2));
         Assert.assertEquals(set.getTcgplayerGroupId(), Integer.valueOf(75));
-        Assert.assertEquals(set.getTotalSetSize(), Integer.valueOf(306));
+        Assert.assertEquals(set.getTotalSetSize(), 306);
         Assert.assertEquals(set.getType(), Set.Type.EXPANSION);
     }
 }

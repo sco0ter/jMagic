@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Christian Schudt
+ * Copyright (c) 2022 Christian Schudt
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,14 @@
  * SOFTWARE.
  */
 
-package mtgjson;
+package mtgjson
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonValue
 
-public enum Rarity {
+enum class BorderColor(@JsonValue val value: String) {
+    BLACK("black"),
+    BORDERLESS("borderless"),
+    GOLD("gold"), SILVER("silver"),
+    WHITE("white");
 
-    COMMON("common"),
-    UNCOMMON("uncommon"),
-    RARE("rare"),
-    MYTHIC("mythic"),
-    BONUS("bonus"),
-    SPECIAL("special");
-
-    @JsonValue
-    private final String value;
-
-    Rarity(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

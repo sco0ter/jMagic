@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Christian Schudt
+ * Copyright (c) 2022 Christian Schudt
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +22,29 @@
  * SOFTWARE.
  */
 
-package mtgjson;
+package mtgjson
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonValue
 
-public enum Finish {
+enum class Layout(@JsonValue val value: String) {
+    ADVENTURE("adventure"),
+    AFTERMATH("aftermath"),
+    ART_SERIES("art_series"),
+    AUGMENT("augment"),
+    CLASS("class"),
+    EMBLEM("emblem"),
+    FLIP("flip"),
+    HOST("host"),
+    LEVELER("leveler"),
+    MELD("meld"),
+    MODAL_DFC("modal_dfc"),
+    NORMAL("normal"),
+    PLANAR("planar"),
+    SAGA("saga"),
+    SCHEME("scheme"),
+    SPLIT("split"),
+    TOKEN("token"),
+    TRANSFORM("transform"),
+    VANGUARD("vanguard");
 
-    ETCHED("etched"),
-    FOIL("foil"),
-    GLOSSY("glossy"),
-    NONFOIL("nonfoil"),
-    SIGNED("signed");
-
-    @JsonValue
-    private final String value;
-
-    Finish(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

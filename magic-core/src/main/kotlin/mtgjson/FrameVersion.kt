@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Christian Schudt
+ * Copyright (c) 2022 Christian Schudt
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,14 @@
  * SOFTWARE.
  */
 
-package mtgjson;
+package mtgjson
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonValue
 
-public enum FrameVersion {
-
-    _1993("1993"), _1997("1997"), _2003("2003"), _2015("2015"), FUTURE("future");
-
-    @JsonValue
-    private final String value;
-
-    FrameVersion(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+enum class FrameVersion(@JsonValue val value: String) {
+    _1993("1993"),
+    _1997("1997"),
+    _2003("2003"),
+    _2015("2015"),
+    FUTURE("future");
 }

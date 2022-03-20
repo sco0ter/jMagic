@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Christian Schudt
+ * Copyright (c) 2022 Christian Schudt
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,32 @@
  * SOFTWARE.
  */
 
-package mtgjson;
+package mtgjson
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.beans.ConstructorProperties
+import java.time.LocalDate
 
-public enum FrameEffect {
-    COLORSHIFTED("colorshifted"),
-    COMPANION("companion"),
-    COMPASSLANDDFC("compasslanddfc"),
-    DEVOID("devoid"),
-    DRAFT("draft"),
-    ETCHED("etched"),
-    EXTENDEDART("extendedart"),
-    FULLART("fullart"),
-    INVERTED("inverted"),
-    LEGENDARY("legendary"),
-    MIRACLE("miracle"),
-    MOONELDRAZIDFC("mooneldrazidfc"),
-    NYXBORN("nyxborn"),
-    NYXTOUCHED("nyxtouched"),
-    ORIGINPWDFC("originpwdfc"),
-    SHOWCASE("showcase"),
-    SNOW("snow"),
-    SUNMOONDFC("sunmoondfc"),
-    TOMBSTONE("tombstone"),
-    WAXINGANDWANINGMOONDFC("waxingandwaningmoondfc");
+/**
+ * The Rulings data model describes a list of rulings for a specific card.
+ */
+class Ruling @ConstructorProperties("date", "text") constructor(
 
-    @JsonValue
-    private final String value;
+    /**
+     * Gets the release date for the rule.
+     *
+     * @return The release date for the rule.
+     */
+    val date: LocalDate?,
 
-    FrameEffect(String value) {
-        this.value = value;
-    }
+    /**
+     * Gets the text ruling of the card.
+     *
+     * @return The text ruling of the card.
+     */
+    val text: String?
+) {
 
-    public String getValue() {
-        return value;
+    override fun toString(): String {
+        return "$text ($date)"
     }
 }
