@@ -72,6 +72,34 @@ object MtgJsonParser {
         return StreamSupport.stream(MtgJsonSpliterator(parser), false)
     }
 
+    @JvmStatic
+    @Throws(IOException::class)
+    fun parseAllPrintingsSeq(inputStream: InputStream): Sequence<Set> {
+        return parseSeq(inputStream, true)
+    }
+
+    @JvmStatic
+    @Throws(IOException::class)
+    fun parseSeq(inputStream: InputStream, skip: Boolean): Sequence<Set> {
+        val parser = OBJECT_READER.createParser(inputStream)
+
+        // move to start of document
+        parser.nextValue()
+        // move to "meta" element
+        parser.nextValue()
+        // skip "meta" element
+        parser.skipChildren()
+        if (skip) {
+            parser.nextValue()
+        }
+
+        return generateSequence() {
+            parser.nextValue().run {
+                parser.readValueAs(Set::class.java)
+            } ?: null
+        }
+    }
+
     private class MtgJsonSpliterator(private val parser: JsonParser) :
         AbstractSpliterator<Set>(Long.MAX_VALUE, DISTINCT or NONNULL or IMMUTABLE) {
         override fun tryAdvance(action: Consumer<in Set>): Boolean {

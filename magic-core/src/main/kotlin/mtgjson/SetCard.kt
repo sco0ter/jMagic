@@ -188,7 +188,7 @@ open class SetCard @ConstructorProperties(
      *
      * @return The type of the card as originally printed. Includes any supertypes and subtypes.
      */
-    val originalType: String,
+    val originalType: String?,
 
     /**
      * A list of UUID's of this card with counterparts, such as transformed or melded faces.
