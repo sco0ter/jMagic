@@ -94,9 +94,9 @@ object MtgJsonParser {
         }
 
         return generateSequence() {
-            parser.nextValue().run {
+            parser.nextValue()?.let {
                 parser.readValueAs(Set::class.java)
-            } ?: null
+            }
         }
     }
 

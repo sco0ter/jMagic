@@ -26,6 +26,7 @@ package mtgjson
 
 import mtgjson.MtgJsonParser.parseAllPrintingsSeq
 import org.testng.annotations.Test
+import java.io.BufferedInputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -34,7 +35,7 @@ class MtgJsonParserIT {
     @Test
     fun `parse all printings`() {
         val a = System.currentTimeMillis();
-        Files.newInputStream(Paths.get("./AllPrintings.json")).use { inputStream ->
+        BufferedInputStream(Files.newInputStream(Paths.get("./AllPrintings.json"))).use { inputStream ->
             val sets = parseAllPrintingsSeq(inputStream)
             sets.forEach { set: Set? ->
                 println(set)
